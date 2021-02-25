@@ -14,9 +14,9 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ClientSecret": "46_ykf6YS~PF19~VztH0K6X3Y4.-9fSAYW",
-        "ClientId": "7555b084-3e96-4886-b737-b30325678ada",
-        "KeyVaultUrl": "kvaeusdsdevinhumaciones",
+        "ClientSecret": "vUrL7jO92kio3_-_ZE-Q4aEn4r_He0s5ij",
+        "ClientId": "f5e4e5ec-408a-4a78-83d3-af1e3634ec84",
+        "KeyVaultUrl": "KV-AEU-SDS-DEV-Tramites",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
@@ -25,8 +25,9 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ClientId": "7555b084-3e96-4886-b737-b30325678ada",
-        "KeyVaultUrl": "kvaeusdsdevinhumaciones",
+        "ClientSecret": "vUrL7jO92kio3_-_ZE-Q4aEn4r_He0s5ij",
+        "ClientId": "f5e4e5ec-408a-4a78-83d3-af1e3634ec84",
+        "KeyVaultUrl": "KV-AEU-SDS-DEV-Tramites",
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "https://localhost:5001"
