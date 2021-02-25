@@ -1,0 +1,42 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": false,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:57594",
+      "sslPort": 0
+    }
+  },
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "IIS Express": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ClientSecret": "46_ykf6YS~PF19~VztH0K6X3Y4.-9fSAYW",
+        "ClientId": "7555b084-3e96-4886-b737-b30325678ada",
+        "KeyVaultUrl": "kvaeusdsdevinhumaciones",
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "Backend.Inhumaciones.API": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ClientId": "7555b084-3e96-4886-b737-b30325678ada",
+        "KeyVaultUrl": "kvaeusdsdevinhumaciones",
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:5001"
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/weatherforecast",
+      "publishAllPorts": true,
+      "useSSL": true
+    }
+  }
+}
