@@ -30,6 +30,8 @@
         "KeyVaultUrl": "KV-AEU-SDS-DEV-Tramites",
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
+      "sqlDebugging": false,
+      "nativeDebugging": false,
       "applicationUrl": "https://localhost:5001"
     },
     "Docker": {
