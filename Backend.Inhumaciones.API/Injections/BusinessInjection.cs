@@ -24,6 +24,9 @@ namespace Backend.Inhumaciones.API.Injections
             services.AddTransient<ISexoBusiness, SexoBusiness>();
             services.AddTransient<IModuloBusiness, ModuloBusiness>();
             services.AddTransient<IMenuBusiness, MenuBusiness>();
+            services.AddTransient<IPersonaBusiness, PersonaBusiness>();
+            services.AddTransient<IUsuarioBusiness, UsuarioBusiness>();
+            services.AddTransient<IInvitedUserBusiness, InvitedUserBusiness>();
         }
     }
 }

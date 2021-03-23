@@ -1,5 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using Backend.Inhumaciones.Entities.Models.Inhumaciones;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Backend.Inhumaciones.API.Controllers
 {
@@ -12,6 +13,10 @@ namespace Backend.Inhumaciones.API.Controllers
     public class CommonsController : ControllerBase
     {
         #region Attributes
+
+
+        private readonly Entities.Interface.Business.IPersonaBusiness PersonaBusiness;
+
         /// <summary>
         /// The tipo identificacion business
         /// </summary>
@@ -59,7 +64,8 @@ namespace Backend.Inhumaciones.API.Controllers
                                  Entities.Interface.Business.IEtniaBusiness etniaBusiness,
                                  Entities.Interface.Business.IEstadoCivilBusiness estadoCivilBusiness,
                                  Entities.Interface.Business.INivelEducativoBusiness nivelEducativoBusiness,
-                                 Entities.Interface.Business.ISexoBusiness sexoBusiness)
+                                 Entities.Interface.Business.ISexoBusiness sexoBusiness,
+                                 Entities.Interface.Business.IPersonaBusiness persona)
         {
             TipoIdentificacionBusiness = tipoIdentificacionBusiness;
             PaisBusiness = paisBusiness;
@@ -68,6 +74,7 @@ namespace Backend.Inhumaciones.API.Controllers
             EstadoCivilBusiness = estadoCivilBusiness;
             NivelEducativoBusiness = nivelEducativoBusiness;
             SexoBusiness = sexoBusiness;
+            PersonaBusiness = persona;
         }
         #endregion
 
@@ -147,6 +154,19 @@ namespace Backend.Inhumaciones.API.Controllers
         public async Task<ActionResult> GetSexo()
         {
             var result = await SexoBusiness.GetSexo();
+            return StatusCode(result.Code, result);
+        }
+
+        /// <summary>
+        /// Adds the persona.
+        /// </summary>
+        /// <param name="persona">The persona.</param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("AddPersona")]
+        public async Task<ActionResult> AddPersona(Persona persona)
+        {
+            var result = await PersonaBusiness.AddPersona(persona);
             return StatusCode(result.Code, result);
         }
         #endregion

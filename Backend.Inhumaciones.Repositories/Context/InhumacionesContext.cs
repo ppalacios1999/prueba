@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Backend.Inhumaciones.Entities.Models.Inhumaciones;
+﻿using Backend.Inhumaciones.Entities.Models.Inhumaciones;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Inhumaciones.Repositories.Context
 {

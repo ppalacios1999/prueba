@@ -16,6 +16,6 @@ namespace Backend.Inhumaciones.Entities.Models.Administracion
         public DateTime? FechaCrea { get; set; }
         public int? IdUsuModi { get; set; }
         public DateTime? FechaModi { get; set; }
-       
+
     }
 }
