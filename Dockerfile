@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build-env
 WORKDIR /app
 RUN apt-get update -qq && apt-get -y install libgdiplus libc6-dev
 RUN apt-get install libjpeg62
-RUN sudo apt-get install xvfb libfontconfig wkhtmltopdf
+RUN apt-get install xvfb libfontconfig wkhtmltopdf
 
 EXPOSE 80 443
 
