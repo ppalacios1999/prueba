@@ -1,6 +1,7 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build-env
 WORKDIR /app
 RUN apt-get update -qq && apt-get -y install libgdiplus libc6-dev
+RUN apt-get install libjpeg62
 
 EXPOSE 80 443
 
