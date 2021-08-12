@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Backend.InhumacionCremacion.API</name>
+    </assembly>
+    <members>
+        <member name="T:Backend.InhumacionCremacion.API.Controllers.GeneratePDFController">
+            <summary>
+            GeneratePDFController
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+        </member>
+        <member name="F:Backend.InhumacionCremacion.API.Controllers.GeneratePDFController._generatePDFBusiness">
+            <summary>
+            The generate PDF business
+            </summary>
+        </member>
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.GeneratePDFController.#ctor(Backend.InhumacionCremacion.Entities.Interface.Business.IGeneratePDFBusiness)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Backend.InhumacionCremacion.API.Controllers.GeneratePDFController"/> class.
+            </summary>
+            <param name="generatePDFBusiness">The generate PDF business.</param>
+        </member>
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.GeneratePDFController.GeneratePDF">
+            <summary>
+            Generates the PDF.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Backend.InhumacionCremacion.API.Controllers.RequestController">
+            <summary>
+            RequestController
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+        </member>
+        <member name="F:Backend.InhumacionCremacion.API.Controllers.RequestController.RequestBusiness">
+            <summary>
+            The request business
+            </summary>
+        </member>
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.RequestController.#ctor(Backend.InhumacionCremacion.Entities.Interface.Business.IRequestBusiness)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Backend.InhumacionCremacion.API.Controllers.RequestController"/> class.
+            </summary>
+            <param name="requestBusiness">The request business.</param>
+        </member>
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.RequestController.AddRquest(Backend.InhumacionCremacion.Entities.DTOs.RequestDTO)">
+            <summary>
+            Adds the rquest.
+            </summary>
+            <param name="requestDTO">The request dto.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Backend.InhumacionCremacion.API.Injections.BusinessInjection">
+            <summary>
+            Business Injection
+            </summary>
+        </member>
+        <member name="M:Backend.InhumacionCremacion.API.Injections.BusinessInjection.AddBusinessConfig(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds the business configuration.
+            </summary>
+            <param name="services">The services.</param>
+        </member>
+        <member name="T:Backend.InhumacionCremacion.API.Injections.InitialInjection">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Backend.InhumacionCremacion.API.Injections.InitialInjection.AddInitialConfig(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds the initial configuration.
+            </summary>
+            <param name="services">The services.</param>
+        </member>
+        <member name="M:Backend.InhumacionCremacion.API.Injections.InitialInjection.UseInitialConfig(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Uses the initial configuration.
+            </summary>
+            <param name="app">The application.</param>
+        </member>
+        <member name="T:Backend.InhumacionCremacion.API.Injections.SwaggerInjection">
+            <summary>
+            Swagger Injection
+            </summary>
+        </member>
+        <member name="M:Backend.InhumacionCremacion.API.Injections.SwaggerInjection.AddSwaggerConfig(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds the swagger configuration.
+            </summary>
+            <param name="services">The services.</param>
+        </member>
+        <member name="M:Backend.InhumacionCremacion.API.Injections.SwaggerInjection.UseSwaggerConfig(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Uses the swagger configuration.
+            </summary>
+            <param name="app">The application.</param>
+        </member>
+        <member name="T:Backend.InhumacionCremacion.API.Program">
+            <summary>
+            Program
+            </summary>
+        </member>
+        <member name="M:Backend.InhumacionCremacion.API.Program.Main(System.String[])">
+            <summary>
+            Defines the entry point of the application.
+            </summary>
+            <param name="args">The arguments.</param>
+        </member>
+        <member name="M:Backend.InhumacionCremacion.API.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            Creates the host builder.
+            </summary>
+            <param name="args">The arguments.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Backend.InhumacionCremacion.API.Startup">
+            <summary>
+            Startup
+            </summary>
+        </member>
+        <member name="M:Backend.InhumacionCremacion.API.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Backend.InhumacionCremacion.API.Startup"/> class.
+            </summary>
+            <param name="configuration">The configuration.</param>
+        </member>
+        <member name="P:Backend.InhumacionCremacion.API.Startup.Configuration">
+            <summary>
+            Gets the configuration.
+            </summary>
+            <value>
+            The configuration.
+            </value>
+        </member>
+        <member name="M:Backend.InhumacionCremacion.API.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configures the services.
+            </summary>
+            <param name="services">The services.</param>
+        </member>
+        <member name="M:Backend.InhumacionCremacion.API.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Configures the specified application.
+            </summary>
+            <param name="app">The application.</param>
+            <param name="env">The env.</param>
+        </member>
+    </members>
+</doc>
