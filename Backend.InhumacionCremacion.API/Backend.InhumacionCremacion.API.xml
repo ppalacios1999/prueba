@@ -51,6 +51,13 @@
             <param name="requestDTO">The request dto.</param>
             <returns></returns>
         </member>
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.RequestController.GetRequestByIdUser(System.String)">
+            <summary>
+            GetRequestByIdUser
+            </summary>
+            <param name="idUser"></param>
+            <returns></returns>
+        </member>
         <member name="T:Backend.InhumacionCremacion.API.Injections.BusinessInjection">
             <summary>
             Business Injection

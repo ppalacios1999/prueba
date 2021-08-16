@@ -42,6 +42,19 @@ namespace Backend.InhumacionCremacion.API.Controllers
             var result = await RequestBusiness.AddRequest(requestDTO);
             return StatusCode(result.Code, result);
         }
+
+        /// <summary>
+        /// GetRequestByIdUser
+        /// </summary>
+        /// <param name="idUser"></param>
+        /// <returns></returns>
+        [HttpGet("GetRequestByIdUser/{idUser}")]
+        public async Task<ActionResult> GetRequestByIdUser(string idUser)
+        {
+            var result = await RequestBusiness.GetRequestByIdUser(idUser);
+            return StatusCode(result.Code, result);
+        }
+
         #endregion
     }
 }
