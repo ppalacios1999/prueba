@@ -1,5 +1,4 @@
-﻿using Backend.InhumacionCremacion.Entities.DTOs;
-using Backend.InhumacionCremacion.Entities.Responses;
+﻿using Backend.InhumacionCremacion.Entities.Responses;
 using System.Threading.Tasks;
 
 namespace Backend.InhumacionCremacion.Entities.Interface.Business
@@ -11,13 +10,13 @@ namespace Backend.InhumacionCremacion.Entities.Interface.Business
         /// </summary>
         /// <param name="requestDTO">The request dto.</param>
         /// <returns></returns>
-        Task<ResponseBase<bool>> AddRequest(RequestDTO requestDTO);
+        Task<ResponseBase<bool>> AddRequest(DTOs.RequestDTO requestDTO);
 
         /// <summary>
         /// GetRequestByIdUser
         /// </summary>
         /// <param name="idUser"></param>
         /// <returns></returns>
-        Task<ResponseBase<dynamic>> GetRequestByIdUser(string idUser);
+        Task<ResponseBase<DTOs.RequestDetailDTO>> GetRequestByIdUser(string idUser);
     }
 }

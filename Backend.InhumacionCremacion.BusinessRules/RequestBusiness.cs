@@ -1,8 +1,6 @@
-﻿using Backend.InhumacionCremacion.Entities.DTOs;
-using Backend.InhumacionCremacion.Entities.Interface.Business;
+﻿using Backend.InhumacionCremacion.Entities.Interface.Business;
 using Backend.InhumacionCremacion.Entities.Responses;
 using Backend.InhumacionCremacion.Utilities.Telemetry;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
@@ -89,7 +87,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
         /// </summary>
         /// <param name="requestDTO">The request dto.</param>
         /// <returns></returns>
-        public async Task<ResponseBase<bool>> AddRequest(RequestDTO requestDTO)
+        public async Task<ResponseBase<bool>> AddRequest(Entities.DTOs.RequestDTO requestDTO)
         {
             try
             {
@@ -255,18 +253,28 @@ namespace Backend.InhumacionCremacion.BusinessRules
         /// </summary>
         /// <param name="idUser"></param>
         /// <returns></returns>
-        public async Task<ResponseBase<dynamic>> GetRequestByIdUser(string idUser)
+        public async Task<ResponseBase<Entities.DTOs.RequestDetailDTO>> GetRequestByIdUser(string idUser)
         {
             try
             {
                 var result = await _repositorySolicitud.GetAsync(predicate: p => p.IdUsuarioSeguridad.Equals(Guid.Parse(idUser)));
 
-                return new ResponseBase<dynamic>(code: System.Net.HttpStatusCode.OK, message: "Solicitud ok", data: result);
+                var resultDTO = new Entities.DTOs.RequestDetailDTO
+                {
+                    CodigoTramite = 1,
+                    EstadoSolicitud = "e",
+                    FechaSolicitud = result.FechaSolicitud,
+                    NumeroCertificado = result.NumeroCertificado,
+                    Tramite = ""
+
+                };
+
+                return new ResponseBase<Entities.DTOs.RequestDetailDTO>(code: System.Net.HttpStatusCode.OK, message: "Solicitud ok", data: resultDTO);
             }
             catch (Exception ex)
             {
                 _telemetryException.RegisterException(ex);
-                return new ResponseBase<dynamic>(code: System.Net.HttpStatusCode.InternalServerError, message: ex.Message);
+                return new ResponseBase<Entities.DTOs.RequestDetailDTO>(code: System.Net.HttpStatusCode.InternalServerError, message: ex.Message);
             }
 
 
