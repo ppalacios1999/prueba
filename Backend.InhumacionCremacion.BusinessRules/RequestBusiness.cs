@@ -2,6 +2,7 @@
 using Backend.InhumacionCremacion.Entities.Interface.Business;
 using Backend.InhumacionCremacion.Entities.Responses;
 using Backend.InhumacionCremacion.Utilities.Telemetry;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
@@ -53,7 +54,6 @@ namespace Backend.InhumacionCremacion.BusinessRules
 
         #endregion
 
-
         #region Constructor                                                
         /// <summary>
         /// Initializes a new instance of the <see cref="RequestBusiness"/> class.
@@ -83,6 +83,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
         }
         #endregion
 
+        #region Methods
         /// <summary>
         /// Adds the request.
         /// </summary>
@@ -248,5 +249,28 @@ namespace Backend.InhumacionCremacion.BusinessRules
                 throw;
             }
         }
+
+        /// <summary>
+        /// GetRequestByIdUser
+        /// </summary>
+        /// <param name="idUser"></param>
+        /// <returns></returns>
+        public async Task<ResponseBase<dynamic>> GetRequestByIdUser(string idUser)
+        {
+            try
+            {
+                var result = await _repositorySolicitud.GetAsync(predicate: p => p.IdUsuarioSeguridad.Equals(Guid.Parse(idUser)));
+
+                return new ResponseBase<dynamic>(code: System.Net.HttpStatusCode.OK, message: "Solicitud ok", data: result);
+            }
+            catch (Exception ex)
+            {
+                _telemetryException.RegisterException(ex);
+                return new ResponseBase<dynamic>(code: System.Net.HttpStatusCode.InternalServerError, message: ex.Message);
+            }
+
+
+        }
+        #endregion
     }
 }
