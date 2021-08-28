@@ -253,7 +253,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
 
 
 
-        public async Task<ResponseBase<List<dynamic>>> GetRequestById(string idSolicitud)
+        public async Task<ResponseBase<List<Entities.Models.InhumacionCremacion.Solicitud>>> GetRequestById(string idSolicitud)
         {
             try
             {
@@ -263,12 +263,12 @@ namespace Backend.InhumacionCremacion.BusinessRules
 
                 var personaDB = _repositoryPersona.GetAllAsync(p => p.IdSolicitud.Equals(Guid.Parse("10A94D2D-20FF-4DBB-B1F0-3C07202FF121")));
 
-                return new ResponseBase<List<dynamic>>(code: System.Net.HttpStatusCode.OK, message: "Solicitud OK", data: result.ToList());
+                return new ResponseBase<List<Entities.Models.InhumacionCremacion.Solicitud>>(code: System.Net.HttpStatusCode.OK, message: "Solicitud OK", data: result.ToList());
             }
             catch (Exception ex)
             {
                 _telemetryException.RegisterException(ex);
-                return new ResponseBase<List<dynamic>>(code: System.Net.HttpStatusCode.InternalServerError, message: ex.Message);
+                return new ResponseBase<List<Entities.Models.InhumacionCremacion.Solicitud>>(code: System.Net.HttpStatusCode.InternalServerError, message: ex.Message);
             }
         }
 
