@@ -19,8 +19,8 @@ namespace Backend.InhumacionCremacion.Entities.DTOs
         public Guid IdTramite { get; set; }
         //public Guid IdLugarDefuncion { get; set; }
         public Guid IdTipoMuerte { get; set; }
-        public Guid IdDatosCementerio { get; set; }
-        public Guid IdInstitucionCertificaFallecimiento { get; set; }
+        //public Guid IdDatosCementerio { get; set; }
+        //public Guid IdInstitucionCertificaFallecimiento { get; set; }
         public virtual List<Entities.DTOs.PersonaDTO> Persona { get; set; }
         public virtual Entities.DTOs.LugarDefuncionDTO LugarDefuncion { get; set; }
         public virtual Entities.DTOs.UbicacionPersonaDTO UbicacionPersona { get; set; }
