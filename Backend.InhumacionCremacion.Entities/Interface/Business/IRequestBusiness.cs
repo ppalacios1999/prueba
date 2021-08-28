@@ -1,4 +1,5 @@
 ﻿using Backend.InhumacionCremacion.Entities.Responses;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Backend.InhumacionCremacion.Entities.Interface.Business
@@ -18,5 +19,7 @@ namespace Backend.InhumacionCremacion.Entities.Interface.Business
         /// <param name="idUser"></param>
         /// <returns></returns>
         Task<ResponseBase<DTOs.RequestDetailDTO>> GetRequestByIdUser(string idUser);
+
+        Task<ResponseBase<List<Models.InhumacionCremacion.Solicitud>>> GetRequestById(string idSolicitud);
     }
 }

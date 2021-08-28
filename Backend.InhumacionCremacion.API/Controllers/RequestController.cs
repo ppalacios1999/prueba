@@ -55,6 +55,20 @@ namespace Backend.InhumacionCremacion.API.Controllers
             return StatusCode(result.Code, result);
         }
 
+        /// <summary>
+        /// GetRequestById
+        /// </summary>
+        /// <param name="idSolicitud"></param>
+        /// <returns></returns>
+        [HttpGet("GetRequestById/{idSolicitud}")]
+        public async Task<ActionResult> GetRequestById(string idSolicitud)
+        {
+            var result = await RequestBusiness.GetRequestById(idSolicitud);
+            return StatusCode(result.Code, result);
+        }
+
+
+
         #endregion
     }
 }
