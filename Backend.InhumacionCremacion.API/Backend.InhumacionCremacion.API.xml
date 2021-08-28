@@ -58,6 +58,13 @@
             <param name="idUser"></param>
             <returns></returns>
         </member>
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.RequestController.GetRequestById(System.String)">
+            <summary>
+            GetRequestById
+            </summary>
+            <param name="idSolicitud"></param>
+            <returns></returns>
+        </member>
         <member name="T:Backend.InhumacionCremacion.API.Injections.BusinessInjection">
             <summary>
             Business Injection

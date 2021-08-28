@@ -1,7 +1,10 @@
 ﻿using Backend.InhumacionCremacion.Entities.Interface.Business;
 using Backend.InhumacionCremacion.Entities.Responses;
 using Backend.InhumacionCremacion.Utilities.Telemetry;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Backend.InhumacionCremacion.BusinessRules
@@ -245,6 +248,27 @@ namespace Backend.InhumacionCremacion.BusinessRules
             {
                 _telemetryException.RegisterException(ex);
                 throw;
+            }
+        }
+
+
+
+        public async Task<ResponseBase<List<dynamic>>> GetRequestById(string idSolicitud)
+        {
+            try
+            {
+                var result = await _repositorySolicitud.GetAllAsync(predicate: p => p.IdSolicitud.Equals(Guid.Parse(idSolicitud)), include: inc => inc
+                                                                                                                                   .Include(i => i.IdDatosCementerioNavigation)
+                                                                                                                                   .Include(i => i.IdInstitucionCertificaFallecimientoNavigation));
+
+                var personaDB = _repositoryPersona.GetAllAsync(p => p.IdSolicitud.Equals(Guid.Parse("10A94D2D-20FF-4DBB-B1F0-3C07202FF121")));
+
+                return new ResponseBase<List<dynamic>>(code: System.Net.HttpStatusCode.OK, message: "Solicitud OK", data: result.ToList());
+            }
+            catch (Exception ex)
+            {
+                _telemetryException.RegisterException(ex);
+                return new ResponseBase<List<dynamic>>(code: System.Net.HttpStatusCode.InternalServerError, message: ex.Message);
             }
         }
 
