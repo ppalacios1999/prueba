@@ -37,7 +37,7 @@ namespace Backend.InhumacionCremacion.API.Controllers
         /// <param name="requestDTO">The request dto.</param>
         /// <returns></returns>
         [HttpPost("AddRquest")]
-        public async Task<ActionResult> AddRquest(Entities.DTOs.RequestDTO requestDTO)
+        public async Task<ActionResult> AddRquest([FromBody] Entities.DTOs.RequestDTO requestDTO)
         {
             var result = await RequestBusiness.AddRequest(requestDTO);
             return StatusCode(result.Code, result);

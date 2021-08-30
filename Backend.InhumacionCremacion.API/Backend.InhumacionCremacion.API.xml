@@ -65,6 +65,30 @@
             <param name="idSolicitud"></param>
             <returns></returns>
         </member>
+        <member name="T:Backend.InhumacionCremacion.API.Controllers.SupportDocumentsController">
+            <summary>
+            SupportDocumentsController
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+        </member>
+        <member name="F:Backend.InhumacionCremacion.API.Controllers.SupportDocumentsController._supportDocumentsBusiness">
+            <summary>
+            The request business
+            </summary>
+        </member>
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.SupportDocumentsController.#ctor(Backend.InhumacionCremacion.Entities.Interface.Business.ISupportDocumentsBusiness)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Backend.InhumacionCremacion.API.Controllers.SupportDocumentsController"/> class.
+            </summary>
+            <param name="supportDocumentsBusiness">The support documents business.</param>
+        </member>
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.SupportDocumentsController.AddSupportDocuments(System.Collections.Generic.List{Backend.InhumacionCremacion.Entities.DTOs.RequestSupportDocumentsDTO})">
+            <summary>
+            Adds the support documents.
+            </summary>
+            <param name="requestSupportDocumentsDTO">The request support documents dto.</param>
+            <returns></returns>
+        </member>
         <member name="T:Backend.InhumacionCremacion.API.Injections.BusinessInjection">
             <summary>
             Business Injection

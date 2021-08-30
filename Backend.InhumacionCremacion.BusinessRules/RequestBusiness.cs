@@ -90,7 +90,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
         /// </summary>
         /// <param name="requestDTO">The request dto.</param>
         /// <returns></returns>
-        public async Task<ResponseBase<bool>> AddRequest(Entities.DTOs.RequestDTO requestDTO)
+        public async Task<ResponseBase<string>> AddRequest(Entities.DTOs.RequestDTO requestDTO)
         {
             try
             {
@@ -242,7 +242,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
                         });
                     }
                 }
-                return new ResponseBase<bool>(code: System.Net.HttpStatusCode.OK, message: "", data: true);
+                return new ResponseBase<string>(code: System.Net.HttpStatusCode.OK, message: "Solicitud OK", data: IdSolicitud.ToString());
             }
             catch (Exception ex)
             {
