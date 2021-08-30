@@ -26,6 +26,6 @@ namespace Backend.InhumacionCremacion.Entities.DTOs
         public virtual Entities.DTOs.UbicacionPersonaDTO UbicacionPersona { get; set; }
         public virtual Entities.DTOs.DatosCementerioDTO DatosCementerio { get; set; }
         public virtual Entities.DTOs.InstitucionCertificaFallecimientoDTO InstitucionCertificaFallecimiento { get; set; }
-        public virtual List<Entities.DTOs.DocumentosSoporteDTO> DocumentosSoporte { get; set; }
+        //public virtual List<Entities.DTOs.DocumentosSoporteDTO> DocumentosSoporte { get; set; }
     }
 }
