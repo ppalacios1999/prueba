@@ -283,6 +283,11 @@ namespace Backend.InhumacionCremacion.BusinessRules
             {
                 var result = await _repositorySolicitud.GetAsync(predicate: p => p.IdUsuarioSeguridad.Equals(Guid.Parse(idUser)));
 
+                if (result == null)
+                {
+                    return new ResponseBase<Entities.DTOs.RequestDetailDTO>(code: System.Net.HttpStatusCode.OK, message: "No se encontraron resultados");
+                }
+
                 var resultDTO = new Entities.DTOs.RequestDetailDTO
                 {
                     CodigoTramite = result.IdTramite,
