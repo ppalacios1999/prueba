@@ -285,12 +285,10 @@ namespace Backend.InhumacionCremacion.BusinessRules
 
                 var resultDTO = new Entities.DTOs.RequestDetailDTO
                 {
-                    CodigoTramite = 1,
-                    EstadoSolicitud = "e",
+                    CodigoTramite = result.IdTramite,
+                    EstadoSolicitud = result.EstadoSolicitud.ToString(),
                     FechaSolicitud = result.FechaSolicitud,
                     NumeroCertificado = result.NumeroCertificado,
-                    Tramite = ""
-
                 };
 
                 return new ResponseBase<Entities.DTOs.RequestDetailDTO>(code: System.Net.HttpStatusCode.OK, message: "Solicitud ok", data: resultDTO);
