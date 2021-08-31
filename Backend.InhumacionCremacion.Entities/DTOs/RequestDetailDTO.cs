@@ -8,6 +8,6 @@ namespace Backend.InhumacionCremacion.Entities.DTOs
         public DateTime FechaSolicitud { get; set; }
         public string EstadoSolicitud { get; set; }
         public Guid CodigoTramite { get; set; }
-        public string Tramite { get; set; }
+        public int IdPersonaVentanilla { get; set; }
     }
 }
