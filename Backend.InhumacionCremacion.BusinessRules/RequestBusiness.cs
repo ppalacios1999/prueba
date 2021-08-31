@@ -289,6 +289,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
                     EstadoSolicitud = result.EstadoSolicitud.ToString(),
                     FechaSolicitud = result.FechaSolicitud,
                     NumeroCertificado = result.NumeroCertificado,
+                    IdPersonaVentanilla = result.IdPersonaVentanilla
                 };
 
                 return new ResponseBase<Entities.DTOs.RequestDetailDTO>(code: System.Net.HttpStatusCode.OK, message: "Solicitud ok", data: resultDTO);
