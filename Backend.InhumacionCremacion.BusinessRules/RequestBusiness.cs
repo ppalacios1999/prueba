@@ -90,7 +90,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
         /// </summary>
         /// <param name="requestDTO">The request dto.</param>
         /// <returns></returns>
-        public async Task<ResponseBase<bool>> AddRequest(Entities.DTOs.RequestDTO requestDTO)
+        public async Task<ResponseBase<string>> AddRequest(Entities.DTOs.RequestDTO requestDTO)
         {
             try
             {
@@ -242,7 +242,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
                         });
                     }
                 }
-                return new ResponseBase<bool>(code: System.Net.HttpStatusCode.OK, message: "", data: true);
+                return new ResponseBase<string>(code: System.Net.HttpStatusCode.OK, message: "Solicitud OK", data: IdSolicitud.ToString());
             }
             catch (Exception ex)
             {
@@ -283,14 +283,18 @@ namespace Backend.InhumacionCremacion.BusinessRules
             {
                 var result = await _repositorySolicitud.GetAsync(predicate: p => p.IdUsuarioSeguridad.Equals(Guid.Parse(idUser)));
 
+                if (result == null)
+                {
+                    return new ResponseBase<Entities.DTOs.RequestDetailDTO>(code: System.Net.HttpStatusCode.OK, message: "No se encontraron resultados");
+                }
+
                 var resultDTO = new Entities.DTOs.RequestDetailDTO
                 {
-                    CodigoTramite = 1,
-                    EstadoSolicitud = "e",
+                    CodigoTramite = result.IdTramite,
+                    EstadoSolicitud = result.EstadoSolicitud.ToString(),
                     FechaSolicitud = result.FechaSolicitud,
                     NumeroCertificado = result.NumeroCertificado,
-                    Tramite = ""
-
+                    IdPersonaVentanilla = result.IdPersonaVentanilla
                 };
 
                 return new ResponseBase<Entities.DTOs.RequestDetailDTO>(code: System.Net.HttpStatusCode.OK, message: "Solicitud ok", data: resultDTO);
