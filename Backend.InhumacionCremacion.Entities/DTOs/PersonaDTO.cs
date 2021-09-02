@@ -15,16 +15,14 @@ namespace Backend.InhumacionCremacion.Entities.DTOs
         public string FechaNacimiento { get; set; }
         public string Nacionalidad { get; set; }
         public string OtroParentesco { get; set; }
-        public bool? Estado { get; set; }
         public Guid? IdEstadoCivil { get; set; }
         public Guid? IdNivelEducativo { get; set; }
         public Guid? IdEtnia { get; set; }
         public Guid? IdRegimen { get; set; }
         public Guid IdTipoPersona { get; set; }
-        public Guid IdSolicitud { get; set; }
         public Guid? IdParentesco { get; set; }
         public Guid? IdLugarExpedicion { get; set; }
-        public Guid? IdTipoProfesional { get; set; }
-        public Guid? IdUbicacionPersona { get; set; }
+        //public Guid? IdTipoProfesional { get; set; }
+        //public Guid? IdUbicacionPersona { get; set; }
     }
 }
