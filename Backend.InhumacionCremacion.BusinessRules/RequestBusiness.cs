@@ -207,7 +207,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
                             IdSolicitud = IdSolicitud,
                             IdParentesco = personas.IdParentesco,
                             IdLugarExpedicion = personas.IdLugarExpedicion,
-                            IdTipoProfesional = personas.IdTipoProfesional,
+                            IdTipoProfesional = Guid.Parse("00000000-0000-0000-0000-000000000000"),
                             IdUbicacionPersona = IdUbicacionPersona
                         });
 
@@ -237,7 +237,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
                             IdSolicitud = IdSolicitud,
                             IdParentesco = personas.IdParentesco,
                             IdLugarExpedicion = personas.IdLugarExpedicion,
-                            IdTipoProfesional = personas.IdTipoProfesional,
+                            IdTipoProfesional = Guid.Parse("00000000-0000-0000-0000-000000000000"),
                             IdUbicacionPersona = IdUbicacionPersona
                         });
                     }
