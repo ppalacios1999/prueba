@@ -162,11 +162,12 @@ namespace Backend.InhumacionCremacion.BusinessRules
 
                 //ubicacion persona
                 // en el front, para los valores nulos se debe enciar el siguiente valor: "00000000-0000-0000-0000-000000000000"
+                //342d934b-c316-46cb-a4f3-3aac5845d246 tipo persona madre
                 Guid IdUbicacionPersona = Guid.Empty;
 
                 foreach (var personas in requestDTO.Solicitud.Persona)
                 {
-                    if (personas.IdTipoPersona == Guid.Parse("00000000-0000-0000-0000-000000000001") &&
+                    if (personas.IdTipoPersona == Guid.Parse("342d934b-c316-46cb-a4f3-3aac5845d246") &&
                         requestDTO.Solicitud.UbicacionPersona.IdPaisResidencia != Guid.Parse("00000000-0000-0000-0000-000000000000") &&
                         requestDTO.Solicitud.UbicacionPersona.IdDepartamentoResidencia != Guid.Parse("00000000-0000-0000-0000-000000000000") &&
                         requestDTO.Solicitud.UbicacionPersona.IdCiudadResidencia != Guid.Parse("00000000-0000-0000-0000-000000000000") &&
