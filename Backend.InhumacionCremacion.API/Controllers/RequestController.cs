@@ -66,9 +66,6 @@ namespace Backend.InhumacionCremacion.API.Controllers
             var result = await RequestBusiness.GetRequestById(idSolicitud);
             return StatusCode(result.Code, result);
         }
-
-
-
         #endregion
     }
 }

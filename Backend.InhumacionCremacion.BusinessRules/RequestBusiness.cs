@@ -1,5 +1,4 @@
-﻿using Backend.InhumacionCremacion.Entities.Interface.Business;
-using Backend.InhumacionCremacion.Entities.Responses;
+﻿using Backend.InhumacionCremacion.Entities.Responses;
 using Backend.InhumacionCremacion.Utilities.Telemetry;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,7 +12,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
     /// AddRequest
     /// </summary>
     /// <seealso cref="Backend.InhumacionCremacion.Entities.Interface.Business.IRequestBusiness" />
-    public class RequestBusiness : IRequestBusiness
+    public class RequestBusiness : Entities.Interface.Business.IRequestBusiness
     {
         #region Attributes
 
@@ -47,26 +46,32 @@ namespace Backend.InhumacionCremacion.BusinessRules
         /// </summary>
         private readonly Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.InstitucionCertificaFallecimiento> _repositoryInstitucionCertificaFallecimiento;
 
-
         /// <summary>
         /// The repository solicitud
         /// </summary>
         private readonly Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.Solicitud> _repositorySolicitud;
 
+        /// <summary>
+        /// _repositoryDominio
+        /// </summary>
+        private readonly Entities.Interface.Repository.IBaseRepositoryCommons<Entities.Models.Commons.Dominio> _repositoryDominio;
+
         #endregion
 
         #region Constructor                                                
         /// <summary>
-        /// Initializes a new instance of the <see cref="RequestBusiness"/> class.
+        /// RequestBusiness
         /// </summary>
-        /// <param name="telemetryException">The telemetry exception.</param>
-        /// <param name="repositorySolicitud">The repository solicitud.</param>
-        /// <param name="repositoryDatosCementerio">The repository datos cementerio.</param>
-        /// <param name="repositoryInstitucionCertificaFallecimiento">The repository institucion certifica fallecimiento.</param>
-        /// <param name="repositoryLugarDefuncion">The repository lugar defuncion.</param>
-        /// <param name="repositoryPersona">The repository persona.</param>
-        /// <param name="repositoryUbicacionPersona">The repository ubicacion persona.</param>
+        /// <param name="telemetryException"></param>
+        /// <param name="repositoryDominio"></param>
+        /// <param name="repositorySolicitud"></param>
+        /// <param name="repositoryDatosCementerio"></param>
+        /// <param name="repositoryInstitucionCertificaFallecimiento"></param>
+        /// <param name="repositoryLugarDefuncion"></param>
+        /// <param name="repositoryPersona"></param>
+        /// <param name="repositoryUbicacionPersona"></param>
         public RequestBusiness(ITelemetryException telemetryException,
+                               Entities.Interface.Repository.IBaseRepositoryCommons<Entities.Models.Commons.Dominio> repositoryDominio,
                                Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.Solicitud> repositorySolicitud,
                                Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.DatosCementerio> repositoryDatosCementerio,
                                Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.InstitucionCertificaFallecimiento> repositoryInstitucionCertificaFallecimiento,
@@ -81,6 +86,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
             _repositoryLugarDefuncion = repositoryLugarDefuncion;
             _repositoryPersona = repositoryPersona;
             _repositoryUbicacionPersona = repositoryUbicacionPersona;
+            _repositoryDominio = repositoryDominio;
         }
         #endregion
 
@@ -253,7 +259,11 @@ namespace Backend.InhumacionCremacion.BusinessRules
         }
 
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="idSolicitud"></param>
+        /// <returns></returns>
         public async Task<ResponseBase<List<Entities.Models.InhumacionCremacion.Solicitud>>> GetRequestById(string idSolicitud)
         {
             try
@@ -278,35 +288,52 @@ namespace Backend.InhumacionCremacion.BusinessRules
         /// </summary>
         /// <param name="idUser"></param>
         /// <returns></returns>
-        public async Task<ResponseBase<Entities.DTOs.RequestDetailDTO>> GetRequestByIdUser(string idUser)
+        public async Task<ResponseBase<List<Entities.DTOs.RequestDetailDTO>>> GetRequestByIdUser(string idUser)
         {
             try
             {
-                var result = await _repositorySolicitud.GetAsync(predicate: p => p.IdUsuarioSeguridad.Equals(Guid.Parse(idUser)));
+                var result = await _repositorySolicitud.GetAllAsync(predicate: p => p.IdUsuarioSeguridad.Equals(Guid.Parse(idUser)));
 
                 if (result == null)
                 {
-                    return new ResponseBase<Entities.DTOs.RequestDetailDTO>(code: System.Net.HttpStatusCode.OK, message: "No se encontraron resultados");
+                    return new ResponseBase<List<Entities.DTOs.RequestDetailDTO>>(code: System.Net.HttpStatusCode.OK, message: "No se encontraron resultados");
                 }
 
-                var resultDTO = new Entities.DTOs.RequestDetailDTO
-                {
-                    CodigoTramite = result.IdTramite,
-                    EstadoSolicitud = result.EstadoSolicitud.ToString(),
-                    FechaSolicitud = result.FechaSolicitud,
-                    NumeroCertificado = result.NumeroCertificado,
-                    IdPersonaVentanilla = result.IdPersonaVentanilla
-                };
+                //var resultDominio = await _repositoryDominio.GetAllAsync(predicate: p => p.TipoDominio.Equals(Guid.Parse("C5D41A74-09B6-4A7C-A45D-42792FCB4AC2")));
 
-                return new ResponseBase<Entities.DTOs.RequestDetailDTO>(code: System.Net.HttpStatusCode.OK, message: "Solicitud ok", data: resultDTO);
+
+                //var resultDTO = (from lst in resultDominio
+                //                 select new Entities.DTOs.RequestDetailDTO
+                //                 {
+                //                     CodigoTramite = result.IdTramite,
+                //                     EstadoSolicitud = result.EstadoSolicitud.ToString(),
+                //                     FechaSolicitud = result.FechaSolicitud,
+                //                     NumeroCertificado = result.NumeroCertificado,
+                //                     IdPersonaVentanilla = result.IdPersonaVentanilla,
+                //                     Tramite = lst.Descripcion
+                //                 });
+
+                var resultDTO = new List<Entities.DTOs.RequestDetailDTO>();
+
+                foreach (var item in result)
+                {
+                    resultDTO.Add(new Entities.DTOs.RequestDetailDTO
+                    {
+                        CodigoTramite = item.IdTramite,
+                        EstadoSolicitud = item.EstadoSolicitud.ToString(),
+                        FechaSolicitud = item.FechaSolicitud.ToString("dd-MM-yyyy"),
+                        NumeroCertificado = item.NumeroCertificado,
+                        IdPersonaVentanilla = item.IdPersonaVentanilla
+
+                    });
+                }
+                return new ResponseBase<List<Entities.DTOs.RequestDetailDTO>>(code: System.Net.HttpStatusCode.OK, message: "Solicitud ok", data: resultDTO.ToList(), count: resultDTO.Count());
             }
             catch (Exception ex)
             {
                 _telemetryException.RegisterException(ex);
-                return new ResponseBase<Entities.DTOs.RequestDetailDTO>(code: System.Net.HttpStatusCode.InternalServerError, message: ex.Message);
+                return new ResponseBase<List<Entities.DTOs.RequestDetailDTO>>(code: System.Net.HttpStatusCode.InternalServerError, message: ex.Message);
             }
-
-
         }
         #endregion
     }
