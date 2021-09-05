@@ -26,6 +26,11 @@
         public const string SQLDBInhumacionCremacion = "SQLDBInhumacionCremacion";
 
         /// <summary>
+        /// SQLDBCommons
+        /// </summary>
+        public const string SQLDBCommons = "SQLDBCommons";
+
+        /// <summary>
         /// The application InhumacionCremacion
         /// </summary>
         public const string AppInhumacionCremacion = "AppInhumacionCremacion";
