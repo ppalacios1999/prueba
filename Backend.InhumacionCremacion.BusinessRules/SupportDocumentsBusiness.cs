@@ -1,6 +1,7 @@
 ﻿using Backend.InhumacionCremacion.Entities.DTOs;
 using Backend.InhumacionCremacion.Entities.Responses;
 using Backend.InhumacionCremacion.Utilities.Telemetry;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
@@ -42,7 +43,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
         {
             try
             {
-                if (requestSupportDocumentsDTO != null)
+                if (requestSupportDocumentsDTO == null)
                 {
                     return new ResponseBase<bool>(code: HttpStatusCode.OK, message: "Los Campos son obligatorios", data: false);
                 }
@@ -50,10 +51,11 @@ namespace Backend.InhumacionCremacion.BusinessRules
                 {
                     await _repositoryDocumentosSoporte.AddAsync(new Entities.Models.InhumacionCremacion.DocumentosSoporte
                     {
+                        IdDocumentoSoporte = Guid.NewGuid(),
                         IdSolicitud = System.Guid.Parse(item.IdSolicitud),
                         FechaRegistro = System.DateTime.Now,
                         FechaModificacion = System.DateTime.Now,
-                        IdDocumentoSoporte = item.IdTipoDocumentoSoporte,
+                        IdTipoDocumentoSoporte = item.IdTipoDocumentoSoporte,
                         IdUsuario = item.IdUsuario,
                         Path = item.Path
                     });

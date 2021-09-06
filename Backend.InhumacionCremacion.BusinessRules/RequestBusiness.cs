@@ -292,42 +292,30 @@ namespace Backend.InhumacionCremacion.BusinessRules
         {
             try
             {
-                var result = await _repositorySolicitud.GetAllAsync(predicate: p => p.IdUsuarioSeguridad.Equals(Guid.Parse(idUser)));
+                var resultRequest = await _repositorySolicitud.GetAllAsync(predicate: p => p.IdUsuarioSeguridad.Equals(Guid.Parse(idUser)));
 
-                if (result == null)
+                if (resultRequest == null)
                 {
                     return new ResponseBase<List<Entities.DTOs.RequestDetailDTO>>(code: System.Net.HttpStatusCode.OK, message: "No se encontraron resultados");
                 }
 
-                //var resultDominio = await _repositoryDominio.GetAllAsync(predicate: p => p.TipoDominio.Equals(Guid.Parse("C5D41A74-09B6-4A7C-A45D-42792FCB4AC2")));
+                var listadoEstadoSolicitud = await _repositoryDominio.GetAllAsync(predicate: p => p.TipoDominio.Equals(Guid.Parse("C5D41A74-09B6-4A7C-A45D-42792FCB4AC2")));
 
+                var listadoTramites = await _repositoryDominio.GetAllAsync(predicate: p => p.TipoDominio.Equals(Guid.Parse("37A8F600-30E7-4693-81B7-2F1114124834")));
 
-                //var resultDTO = (from lst in resultDominio
-                //                 select new Entities.DTOs.RequestDetailDTO
-                //                 {
-                //                     CodigoTramite = result.IdTramite,
-                //                     EstadoSolicitud = result.EstadoSolicitud.ToString(),
-                //                     FechaSolicitud = result.FechaSolicitud,
-                //                     NumeroCertificado = result.NumeroCertificado,
-                //                     IdPersonaVentanilla = result.IdPersonaVentanilla,
-                //                     Tramite = lst.Descripcion
-                //                 });
+                var resultJoin = (from rr in resultRequest
+                                  join rd in listadoEstadoSolicitud on rr.EstadoSolicitud equals rd.Id
+                                  join lt in listadoTramites on rr.IdTramite equals lt.Id
+                                  select new Entities.DTOs.RequestDetailDTO
+                                  {
+                                      EstadoSolicitud = rr.EstadoSolicitud.ToString(),
+                                      Tramite = lt.Descripcion,
+                                      Solicitud = rd.Descripcion,
+                                      FechaSolicitud = rr.FechaSolicitud.ToString("dd-MM-yyyy"),
+                                      NumeroCertificado = rr.NumeroCertificado,
+                                  }).ToList();
 
-                var resultDTO = new List<Entities.DTOs.RequestDetailDTO>();
-
-                foreach (var item in result)
-                {
-                    resultDTO.Add(new Entities.DTOs.RequestDetailDTO
-                    {
-                        CodigoTramite = item.IdTramite,
-                        EstadoSolicitud = item.EstadoSolicitud.ToString(),
-                        FechaSolicitud = item.FechaSolicitud.ToString("dd-MM-yyyy"),
-                        NumeroCertificado = item.NumeroCertificado,
-                        IdPersonaVentanilla = item.IdPersonaVentanilla
-
-                    });
-                }
-                return new ResponseBase<List<Entities.DTOs.RequestDetailDTO>>(code: System.Net.HttpStatusCode.OK, message: "Solicitud ok", data: resultDTO.ToList(), count: resultDTO.Count());
+                return new ResponseBase<List<Entities.DTOs.RequestDetailDTO>>(code: System.Net.HttpStatusCode.OK, message: "Solicitud ok", data: resultJoin.ToList(), count: resultJoin.Count());
             }
             catch (Exception ex)
             {
