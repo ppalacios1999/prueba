@@ -20,6 +20,18 @@ namespace Backend.InhumacionCremacion.Entities.Interface.Business
         /// <returns></returns>
         Task<ResponseBase<List<DTOs.RequestDetailDTO>>> GetRequestByIdUser(string idUser);
 
+        /// <summary>
+        /// Gets the code ventanilla by identifier user.
+        /// </summary>
+        /// <param name="idUser">The identifier user.</param>
+        /// <returns></returns>
+        Task<ResponseBase<int>> GetCodeVentanillaByIdUser(string idUser);
+
+        /// <summary>
+        /// Gets the request by identifier.
+        /// </summary>
+        /// <param name="idSolicitud">The identifier solicitud.</param>
+        /// <returns></returns>
         Task<ResponseBase<List<Models.InhumacionCremacion.Solicitud>>> GetRequestById(string idSolicitud);
     }
 }

@@ -65,6 +65,13 @@
             <param name="idSolicitud"></param>
             <returns></returns>
         </member>
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.RequestController.GetCodeVentanillaByIdUser(System.String)">
+            <summary>
+            Gets the code ventanilla by identifier user.
+            </summary>
+            <param name="idUser">The identifier user.</param>
+            <returns></returns>
+        </member>
         <member name="T:Backend.InhumacionCremacion.API.Controllers.SupportDocumentsController">
             <summary>
             SupportDocumentsController
