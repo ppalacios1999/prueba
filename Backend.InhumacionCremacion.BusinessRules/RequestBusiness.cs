@@ -258,6 +258,31 @@ namespace Backend.InhumacionCremacion.BusinessRules
             }
         }
 
+        /// <summary>
+        /// Gets the code ventanilla by identifier user.
+        /// </summary>
+        /// <param name="idUser">The identifier user.</param>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public async Task<ResponseBase<int>> GetCodeVentanillaByIdUser(string idUser)
+        {
+            try
+            {
+                var resultRequest = await _repositorySolicitud.GetAsync(predicate: p => p.IdUsuarioSeguridad.Equals(Guid.Parse(idUser)),
+                                                                        selector: s => new Entities.Models.InhumacionCremacion.Solicitud { IdPersonaVentanilla = s.IdPersonaVentanilla });
+                if (resultRequest == null)
+                {
+                    return new ResponseBase<int>(code: System.Net.HttpStatusCode.OK, message: "No se encontraron resultados");
+                }
+
+                return new ResponseBase<int>(code: System.Net.HttpStatusCode.OK, message: "Solicitud ok", data: resultRequest.IdPersonaVentanilla);
+            }
+            catch (Exception ex)
+            {
+                _telemetryException.RegisterException(ex);
+                return new ResponseBase<int>(code: System.Net.HttpStatusCode.InternalServerError, message: ex.Message);
+            }
+        }
 
         /// <summary>
         /// 
