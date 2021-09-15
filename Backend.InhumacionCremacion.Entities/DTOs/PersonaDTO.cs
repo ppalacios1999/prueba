@@ -23,6 +23,7 @@ namespace Backend.InhumacionCremacion.Entities.DTOs
         public Guid? IdParentesco { get; set; }
         public Guid? IdLugarExpedicion { get; set; }
         public Guid? IdTipoProfesional { get; set; }
-        //public Guid? IdUbicacionPersona { get; set; }
+        //validar not mape
+        public Guid? IdUbicacionPersona { get; set; }
     }
 }

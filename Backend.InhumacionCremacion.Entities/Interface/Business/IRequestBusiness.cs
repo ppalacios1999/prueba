@@ -32,6 +32,13 @@ namespace Backend.InhumacionCremacion.Entities.Interface.Business
         /// </summary>
         /// <param name="idSolicitud">The identifier solicitud.</param>
         /// <returns></returns>
-        Task<ResponseBase<List<Models.InhumacionCremacion.Solicitud>>> GetRequestById(string idSolicitud);
+        Task<ResponseBase<List<Entities.DTOs.SolicitudDTO>>> GetRequestById(string idSolicitud);
+
+        ///// <summary>
+        ///// Gets the detail request by identifier user.
+        ///// </summary>
+        ///// <param name="idUser">The identifier user.</param>
+        ///// <returns></returns>
+        //Task<ResponseBase<List<DTOs.RequestDTO>>> GetDetailRequestByIdUser(string idUser);
     }
 }
