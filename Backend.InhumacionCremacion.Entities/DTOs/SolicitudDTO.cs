@@ -7,7 +7,9 @@ namespace Backend.InhumacionCremacion.Entities.DTOs
     {
         //solicitud
         //se crea en backend
-        //public Guid IdSolicitud { get; set; }
+
+        //tener en cuenta en otro modelo
+        public Guid IdSolicitud { get; set; }
         public string NumeroCertificado { get; set; }
         public DateTime FechaDefuncion { get; set; }
         public bool? SinEstablecer { get; set; }
@@ -21,6 +23,9 @@ namespace Backend.InhumacionCremacion.Entities.DTOs
         public Guid IdTipoMuerte { get; set; }
         //public Guid IdDatosCementerio { get; set; }
         //public Guid IdInstitucionCertificaFallecimiento { get; set; }
+
+        //tener en cuenta en otro modelo
+        public DateTime FechaSolicitud { get; set; }
         public virtual List<Entities.DTOs.PersonaDTO> Persona { get; set; }
         public virtual Entities.DTOs.LugarDefuncionDTO LugarDefuncion { get; set; }
         public virtual Entities.DTOs.UbicacionPersonaDTO UbicacionPersona { get; set; }

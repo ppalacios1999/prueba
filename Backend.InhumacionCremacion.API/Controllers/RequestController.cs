@@ -78,6 +78,18 @@ namespace Backend.InhumacionCremacion.API.Controllers
             var result = await RequestBusiness.GetCodeVentanillaByIdUser(idUser);
             return StatusCode(result.Code, result);
         }
+
+        /// <summary>
+        /// Gets the detail request by identifier user.
+        /// </summary>
+        /// <param name="idUser">The identifier user.</param>
+        /// <returns></returns>
+        //[HttpGet("GetDetailRequestByIdUser/{idUser}")]
+        //public async Task<ActionResult> GetDetailRequestByIdUser(string idUser)
+        //{
+        //    var result = await RequestBusiness.GetDetailRequestByIdUser(idUser);
+        //    return StatusCode(result.Code, result);
+        //}
         #endregion
     }
 }
