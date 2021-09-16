@@ -11,5 +11,6 @@ namespace Backend.InhumacionCremacion.Entities.DTOs
         public int IdPersonaVentanilla { get; set; }
         public string Tramite { get; set; }
         public string Solicitud { get; set; }
+        public Guid IdSolicitud { get; set; }
     }
 }

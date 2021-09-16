@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
 
 namespace Backend.InhumacionCremacion.BusinessRules
 {
@@ -445,6 +444,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
                                       EstadoSolicitud = rr.EstadoSolicitud.ToString(),
                                       Tramite = lt.Descripcion,
                                       Solicitud = rd.Descripcion,
+                                      IdSolicitud = rr.IdSolicitud,
                                       FechaSolicitud = rr.FechaSolicitud.ToString("dd-MM-yyyy"),
                                       NumeroCertificado = rr.NumeroCertificado,
                                   }).ToList();
@@ -485,6 +485,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
                                       EstadoSolicitud = rr.EstadoSolicitud.ToString(),
                                       Tramite = lt.Descripcion,
                                       Solicitud = rd.Descripcion,
+                                      IdSolicitud = rr.IdSolicitud,
                                       FechaSolicitud = rr.FechaSolicitud.ToString("dd-MM-yyyy"),
                                       NumeroCertificado = rr.NumeroCertificado,
                                   }).ToList();
