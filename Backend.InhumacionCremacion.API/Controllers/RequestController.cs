@@ -80,16 +80,15 @@ namespace Backend.InhumacionCremacion.API.Controllers
         }
 
         /// <summary>
-        /// Gets the detail request by identifier user.
+        /// GetAllRequest
         /// </summary>
-        /// <param name="idUser">The identifier user.</param>
         /// <returns></returns>
-        //[HttpGet("GetDetailRequestByIdUser/{idUser}")]
-        //public async Task<ActionResult> GetDetailRequestByIdUser(string idUser)
-        //{
-        //    var result = await RequestBusiness.GetDetailRequestByIdUser(idUser);
-        //    return StatusCode(result.Code, result);
-        //}
+        [HttpGet("GetAllRequest")]
+        public async Task<ActionResult> GetAllRequest()
+        {
+            var result = await RequestBusiness.GetAllRequest();
+            return StatusCode(result.Code, result);
+        }
         #endregion
     }
 }

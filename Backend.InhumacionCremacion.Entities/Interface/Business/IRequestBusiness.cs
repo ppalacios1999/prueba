@@ -40,5 +40,13 @@ namespace Backend.InhumacionCremacion.Entities.Interface.Business
         ///// <param name="idUser">The identifier user.</param>
         ///// <returns></returns>
         //Task<ResponseBase<List<DTOs.RequestDTO>>> GetDetailRequestByIdUser(string idUser);
+
+        /// <summary>
+        /// GetAllRequest
+        /// </summary>
+        /// <returns></returns>
+        Task<ResponseBase<List<DTOs.RequestDetailDTO>>> GetAllRequest();
+
+
     }
 }
