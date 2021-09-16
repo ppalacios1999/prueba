@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
 
 namespace Backend.InhumacionCremacion.BusinessRules
 {
@@ -458,41 +459,45 @@ namespace Backend.InhumacionCremacion.BusinessRules
         }
 
         /// <summary>
-        /// Gets the detail request by identifier user.
+        /// GetAllRequest
         /// </summary>
-        /// <param name="idUser">The identifier user.</param>
         /// <returns></returns>
-        //public async Task<ResponseBase<List<Entities.DTOs.RequestDTO>>> GetDetailRequestByIdUser(string idUser)
-        //{
-        //    try
-        //    {
-        //        //solicitud
-        //        var resultRequest = await _repositorySolicitud.GetAsync(predicate: p => p.IdUsuarioSeguridad.Equals(Guid.Parse(idUser)));
+        public async Task<ResponseBase<List<Entities.DTOs.RequestDetailDTO>>> GetAllRequest()
+        {
+            try
+            {
+                var resultRequest = await _repositorySolicitud.GetAllAsync();
 
-        //        //datos cementerio
-        //        var resultDatosCementerio = await _repositoryDatosCementerio.GetAsync(predicate: p => p.i.Equals(Guid.Parse(idUser)));
+                if (resultRequest == null)
+                {
+                    return new ResponseBase<List<Entities.DTOs.RequestDetailDTO>>(code: System.Net.HttpStatusCode.OK, message: "No se encontraron resultados");
+                }
 
-        //        //institucion que certifica el fallecemiento
-        //        //lugar de defuncion
-        //        //almacenamiento datos de la solicitud
-        //        //ubicacion persona
+                var listadoEstadoSolicitud = await _repositoryDominio.GetAllAsync(predicate: p => p.TipoDominio.Equals(Guid.Parse("C5D41A74-09B6-4A7C-A45D-42792FCB4AC2")));
 
+                var listadoTramites = await _repositoryDominio.GetAllAsync(predicate: p => p.TipoDominio.Equals(Guid.Parse("37A8F600-30E7-4693-81B7-2F1114124834")));
 
+                var resultJoin = (from rr in resultRequest
+                                  join rd in listadoEstadoSolicitud on rr.EstadoSolicitud equals rd.Id
+                                  join lt in listadoTramites on rr.IdTramite equals lt.Id
+                                  select new Entities.DTOs.RequestDetailDTO
+                                  {
+                                      EstadoSolicitud = rr.EstadoSolicitud.ToString(),
+                                      Tramite = lt.Descripcion,
+                                      Solicitud = rd.Descripcion,
+                                      FechaSolicitud = rr.FechaSolicitud.ToString("dd-MM-yyyy"),
+                                      NumeroCertificado = rr.NumeroCertificado,
+                                  }).ToList();
 
+                return new ResponseBase<List<Entities.DTOs.RequestDetailDTO>>(code: System.Net.HttpStatusCode.OK, message: "Solicitud ok", data: resultJoin.ToList(), count: resultJoin.Count());
 
-
-        //        if (resultRequest == null)
-        //        {
-        //            return new ResponseBase<List<Entities.DTOs.RequestDTO>>(code: System.Net.HttpStatusCode.OK, message: "No se encontraron resultados");
-        //        }
-        //        //return new ResponseBase<List<Entities.DTOs.RequestDTO>>(code: System.Net.HttpStatusCode.OK, message: "Solicitud OK ", data: resultRequest.ToList(), count: resultRequest.Count());
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _telemetryException.RegisterException(ex);
-        //        return new ResponseBase<List<Entities.DTOs.RequestDTO>>(code: System.Net.HttpStatusCode.InternalServerError, message: ex.Message);
-        //    }
-        //}
+            }
+            catch (Exception ex)
+            {
+                _telemetryException.RegisterException(ex);
+                return new ResponseBase<List<Entities.DTOs.RequestDetailDTO>>(code: System.Net.HttpStatusCode.InternalServerError, message: ex.Message);
+            }
+        }
         #endregion
     }
 }
