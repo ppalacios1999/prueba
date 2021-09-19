@@ -93,12 +93,13 @@ namespace Backend.InhumacionCremacion.BusinessRules
                     return new ResponseBase<string>(code: System.Net.HttpStatusCode.BadRequest, message: "Los datos del cementerio no pueden ser nulos");
                 }
 
-                //datos cementerio
+                //datos cementerio ok
                 await _repositoryDatosCementerio.UpdateAsync(new Entities.Models.InhumacionCremacion.DatosCementerio
                 {
                     IdDatosCementerio = requestDTO.DatosCementerio.IdDatosCementerio,
                     EnBogota = requestDTO.DatosCementerio.EnBogota,
                     FueraBogota = requestDTO.DatosCementerio.FueraBogota,
+                    FueraPais = requestDTO.DatosCementerio.FueraPais,
                     Cementerio = requestDTO.DatosCementerio.Cementerio,
                     OtroSitio = requestDTO.DatosCementerio.OtroSitio,
                     Ciudad = requestDTO.DatosCementerio.Ciudad,
@@ -112,8 +113,8 @@ namespace Backend.InhumacionCremacion.BusinessRules
                     return new ResponseBase<string>(code: System.Net.HttpStatusCode.BadRequest, message: "Los datos de la institucion que ceritifa el fallecimiento no pueden ser nulos");
                 }
 
-                //institucion que certifica el fallecemiento
-                await _repositoryInstitucionCertificaFallecimiento.AddAsync(new Entities.Models.InhumacionCremacion.InstitucionCertificaFallecimiento
+                //institucion que certifica el fallecemiento ok
+                await _repositoryInstitucionCertificaFallecimiento.UpdateAsync(new Entities.Models.InhumacionCremacion.InstitucionCertificaFallecimiento
                 {
                     IdInstitucionCertificaFallecimiento = requestDTO.InstitucionCertificaFallecimiento.IdInstitucionCertificaFallecimiento,
                     TipoIdentificacion = requestDTO.InstitucionCertificaFallecimiento.TipoIdentificacion,
@@ -127,39 +128,127 @@ namespace Backend.InhumacionCremacion.BusinessRules
                     IdTipoInstitucion = requestDTO.InstitucionCertificaFallecimiento.IdTipoInstitucion,
                 });
 
-                ////lugar de defuncion
-                //Guid IdLugarDefuncion = Guid.NewGuid();
-                //await _repositoryLugarDefuncion.AddAsync(new Entities.Models.InhumacionCremacion.LugarDefuncion
-                //{
-                //    IdLugarDefuncion = IdLugarDefuncion,
-                //    IdPais = requestDTO.Solicitud.LugarDefuncion.IdPais,
-                //    IdDepartamento = requestDTO.Solicitud.LugarDefuncion.IdDepartamento,
-                //    IdMunicipio = requestDTO.Solicitud.LugarDefuncion.IdMunicipio,
-                //    IdAreaDefuncion = requestDTO.Solicitud.LugarDefuncion.IdAreaDefuncion,
-                //    IdSitioDefuncion = requestDTO.Solicitud.LugarDefuncion.IdSitioDefuncion
+                if (requestDTO.LugarDefuncion == null)
+                {
+                    return new ResponseBase<string>(code: System.Net.HttpStatusCode.BadRequest, message: "Los datos del lugar de la defuncion no pueden ser nulos");
+                }
 
-                //});
+                //lugar de defuncion ok
+                await _repositoryLugarDefuncion.UpdateAsync(new Entities.Models.InhumacionCremacion.LugarDefuncion
+                {
+                    IdLugarDefuncion = requestDTO.LugarDefuncion.IdLugarDefuncion,
+                    IdPais = requestDTO.LugarDefuncion.IdPais,
+                    IdDepartamento = requestDTO.LugarDefuncion.IdDepartamento,
+                    IdMunicipio = requestDTO.LugarDefuncion.IdMunicipio,
+                    IdAreaDefuncion = requestDTO.LugarDefuncion.IdAreaDefuncion,
+                    IdSitioDefuncion = requestDTO.LugarDefuncion.IdSitioDefuncion
 
-                ////almacenamiento datos de la solicitud
-                //Guid IdSolicitud = Guid.NewGuid();
-                //await _repositorySolicitud.AddAsync(new Entities.Models.InhumacionCremacion.Solicitud
-                //{
-                //    IdSolicitud = IdSolicitud,
-                //    NumeroCertificado = requestDTO.Solicitud.NumeroCertificado,
-                //    FechaDefuncion = requestDTO.Solicitud.FechaDefuncion,
-                //    SinEstablecer = requestDTO.Solicitud.SinEstablecer,
-                //    Hora = requestDTO.Solicitud.Hora,
-                //    IdSexo = requestDTO.Solicitud.IdSexo,
-                //    FechaSolicitud = DateTime.Now,
-                //    EstadoSolicitud = requestDTO.Solicitud.EstadoSolicitud,
-                //    IdPersonaVentanilla = requestDTO.Solicitud.IdPersonaVentanilla,
-                //    IdUsuarioSeguridad = requestDTO.Solicitud.IdUsuarioSeguridad,
-                //    IdTramite = requestDTO.Solicitud.IdTramite,
-                //    IdLugarDefuncion = IdLugarDefuncion,
-                //    IdTipoMuerte = requestDTO.Solicitud.IdTipoMuerte,
-                //    IdDatosCementerio = IdDatosCementerio,
-                //    IdInstitucionCertificaFallecimiento = IdInstitucionCertificaFallecimiento
+                });
 
+                //pendiente validacion de campos obligatorios ok
+                await _repositorySolicitud.UpdateAsync(new Entities.Models.InhumacionCremacion.Solicitud
+                {
+                    IdSolicitud = requestDTO.IdSolicitud,
+                    NumeroCertificado = requestDTO.NumeroCertificado,
+                    FechaDefuncion = requestDTO.FechaDefuncion,
+                    SinEstablecer = requestDTO.SinEstablecer,
+                    Hora = requestDTO.Hora,
+                    IdSexo = requestDTO.IdSexo,
+                    FechaSolicitud = DateTime.Now,
+                    EstadoSolicitud = requestDTO.EstadoSolicitud,
+                    IdPersonaVentanilla = requestDTO.IdPersonaVentanilla,
+                    IdUsuarioSeguridad = requestDTO.IdUsuarioSeguridad,
+                    IdTramite = requestDTO.IdTramite,
+                    IdLugarDefuncion = requestDTO.LugarDefuncion.IdLugarDefuncion,
+                    IdTipoMuerte = requestDTO.IdTipoMuerte,
+                    IdDatosCementerio = requestDTO.DatosCementerio.IdDatosCementerio,
+                    IdInstitucionCertificaFallecimiento = requestDTO.InstitucionCertificaFallecimiento.IdInstitucionCertificaFallecimiento
+                });
+
+                var resultUbicacionPersona = new Entities.Models.InhumacionCremacion.UbicacionPersona();
+
+                if (requestDTO.UbicacionPersona != null)
+                {
+                    resultUbicacionPersona = await _repositoryUbicacionPersona.GetAsync(p => p.IdUbicacionPersona.Equals(requestDTO.UbicacionPersona.IdUbicacionPersona));
+                }
+
+                //ubicacion persona
+                foreach (var persona in requestDTO.Persona)
+                {
+                    if (persona.IdTipoPersona == Guid.Parse("342d934b-c316-46cb-a4f3-3aac5845d246") &&
+                        requestDTO.UbicacionPersona.IdPaisResidencia != Guid.Parse("00000000-0000-0000-0000-000000000000") &&
+                        requestDTO.UbicacionPersona.IdDepartamentoResidencia != Guid.Parse("00000000-0000-0000-0000-000000000000") &&
+                        requestDTO.UbicacionPersona.IdCiudadResidencia != Guid.Parse("00000000-0000-0000-0000-000000000000") &&
+                        requestDTO.UbicacionPersona.IdLocalidadResidencia != Guid.Parse("00000000-0000-0000-0000-000000000000") &&
+                        requestDTO.UbicacionPersona.IdAreaResidencia != Guid.Parse("00000000-0000-0000-0000-000000000000") &&
+                        requestDTO.UbicacionPersona.IdBarrioResidencia != Guid.Parse("00000000-0000-0000-0000-000000000000"))
+                    {
+                        // si el tipo de persona es madre y los valores son diferentes de: "00000000-0000-0000-0000-000000000000" se inserta la ubicacion
+
+                        await _repositoryUbicacionPersona.UpdateAsync(new Entities.Models.InhumacionCremacion.UbicacionPersona
+                        {
+                            IdUbicacionPersona = resultUbicacionPersona.IdUbicacionPersona,
+                            IdPaisResidencia = resultUbicacionPersona.IdPaisResidencia,
+                            IdDepartamentoResidencia = resultUbicacionPersona.IdDepartamentoResidencia,
+                            IdCiudadResidencia = resultUbicacionPersona.IdCiudadResidencia,
+                            IdLocalidadResidencia = resultUbicacionPersona.IdLocalidadResidencia,
+                            IdAreaResidencia = resultUbicacionPersona.IdAreaResidencia,
+                            IdBarrioResidencia = resultUbicacionPersona.IdBarrioResidencia,
+                        });
+
+                        await _repositoryPersona.UpdateAsync(new Entities.Models.InhumacionCremacion.Persona
+                        {
+                            IdPersona = persona.IdPersona,
+                            TipoIdentificacion = persona.TipoIdentificacion,
+                            NumeroIdentificacion = persona.NumeroIdentificacion,
+                            PrimerNombre = persona.PrimerNombre,
+                            SegundoNombre = persona.SegundoNombre,
+                            PrimerApellido = persona.PrimerApellido,
+                            SegundoApellido = persona.SegundoApellido,
+                            FechaNacimiento = persona.FechaNacimiento,
+                            Nacionalidad = persona.Nacionalidad,
+                            OtroParentesco = persona.OtroParentesco,
+                            Estado = persona.Estado,
+                            IdEstadoCivil = persona.IdEstadoCivil,
+                            IdNivelEducativo = persona.IdNivelEducativo,
+                            IdEtnia = persona.IdEtnia,
+                            IdRegimen = persona.IdRegimen,
+                            IdTipoPersona = persona.IdTipoPersona,
+                            IdSolicitud = persona.IdSolicitud,
+                            IdParentesco = persona.IdParentesco,
+                            IdLugarExpedicion = persona.IdLugarExpedicion,
+                            IdTipoProfesional = persona.IdTipoProfesional,
+                            IdUbicacionPersona = persona.IdUbicacionPersona
+                        });
+                    }
+                    else // si el tipo de persona es diferente de la madre no tiene ubicacion
+                    {
+                        await _repositoryPersona.UpdateAsync(new Entities.Models.InhumacionCremacion.Persona
+                        {
+                            IdPersona = persona.IdPersona,
+                            TipoIdentificacion = persona.TipoIdentificacion,
+                            NumeroIdentificacion = persona.NumeroIdentificacion,
+                            PrimerNombre = persona.PrimerNombre,
+                            SegundoNombre = persona.SegundoNombre,
+                            PrimerApellido = persona.PrimerApellido,
+                            SegundoApellido = persona.SegundoApellido,
+                            FechaNacimiento = persona.FechaNacimiento,
+                            Nacionalidad = persona.Nacionalidad,
+                            OtroParentesco = persona.OtroParentesco,
+                            Estado = persona.Estado,
+                            IdEstadoCivil = persona.IdEstadoCivil,
+                            IdNivelEducativo = persona.IdNivelEducativo,
+                            IdEtnia = persona.IdEtnia,
+                            IdRegimen = persona.IdRegimen,
+                            IdTipoPersona = persona.IdTipoPersona,
+                            IdSolicitud = persona.IdSolicitud,
+                            IdParentesco = persona.IdParentesco,
+                            IdLugarExpedicion = persona.IdLugarExpedicion,
+                            IdTipoProfesional = persona.IdTipoProfesional,
+                            IdUbicacionPersona = persona.IdUbicacionPersona
+                        });
+                    }
+                }
                 return new ResponseBase<string>(code: System.Net.HttpStatusCode.OK, message: "Solicitud");
             }
             catch (System.Exception ex)
