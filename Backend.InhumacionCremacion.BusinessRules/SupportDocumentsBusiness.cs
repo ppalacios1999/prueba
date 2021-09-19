@@ -95,6 +95,35 @@ namespace Backend.InhumacionCremacion.BusinessRules
                 return new ResponseBase<List<DocumentosSoporte>>(code: HttpStatusCode.InternalServerError, message: ex.Message);
             }
         }
+
+        public async Task<ResponseBase<bool>> UpdateSuport(List<DocumentosSoporte> documentosSoporte)
+        {
+            try
+            {
+                var suportBD = await _repositoryDocumentosSoporte.GetAllAsync(w => w.IdSolicitud.Equals(Guid.Parse(documentosSoporte.FirstOrDefault().IdSolicitud.ToString())));
+
+                if (suportBD == null)
+                {
+                    return new ResponseBase<bool>(System.Net.HttpStatusCode.BadRequest, "No se encontró la solicitud para actualizar.");
+                }
+
+                var listUpdat = suportBD.Zip(documentosSoporte, (s, u) => new { suportBD = s, documentosSoporte = u });
+
+                foreach (var item in listUpdat)
+                {
+                    {
+                        item.suportBD.FechaModificacion = item.documentosSoporte.FechaModificacion;
+                        await _repositoryDocumentosSoporte.UpdateAsync(item.suportBD);
+                    }
+                }
+                return new ResponseBase<bool>(code: HttpStatusCode.OK, message: "Solicitud OK", data: true);
+            }
+            catch (Exception ex)
+            {
+                _telemetryException.RegisterException(ex);
+                return new ResponseBase<bool>(code: HttpStatusCode.InternalServerError, message: ex.Message, data: false);
+            }
+        }
         #endregion
     }
 }
