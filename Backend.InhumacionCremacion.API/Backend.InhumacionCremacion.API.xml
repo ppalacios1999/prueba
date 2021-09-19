@@ -122,6 +122,13 @@
             <param name="IdSolicitud">The identifier solicitud.</param>
             <returns></returns>
         </member>
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.SupportDocumentsController.UpdateSuport(System.Collections.Generic.List{Backend.InhumacionCremacion.Entities.Models.InhumacionCremacion.DocumentosSoporte})">
+            <summary>
+            Updates the suport.
+            </summary>
+            <param name="documentosSoporte">The documentos soporte.</param>
+            <returns></returns>
+        </member>
         <member name="T:Backend.InhumacionCremacion.API.Injections.BusinessInjection">
             <summary>
             Business Injection

@@ -54,6 +54,19 @@ namespace Backend.InhumacionCremacion.API.Controllers
             var result = await _supportDocumentsBusiness.GetAllSuportByRequestId(IdSolicitud);
             return StatusCode(result.Code, result);
         }
+
+        /// <summary>
+        /// Updates the suport.
+        /// </summary>
+        /// <param name="documentosSoporte">The documentos soporte.</param>
+        /// <returns></returns>
+        [HttpPut("UpdateSuport")]
+        public async Task<ActionResult> UpdateSuport([FromBody] List<Entities.Models.InhumacionCremacion.DocumentosSoporte> documentosSoporte)
+        {
+            var result = await _supportDocumentsBusiness.UpdateSuport(documentosSoporte);
+            return StatusCode(result.Code, result);
+        }
+
         #endregion
     }
 }
