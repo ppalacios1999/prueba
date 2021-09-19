@@ -12,5 +12,11 @@ namespace Backend.InhumacionCremacion.Entities.Interface.Business
         /// <param name="requestSupportDocumentsDTOs">The request support documents dt os.</param>
         /// <returns></returns>
         Task<ResponseBase<bool>> AddSupportDocuments(List<DTOs.RequestSupportDocumentsDTO> requestSupportDocumentsDTOs);
+        /// <summary>
+        /// Gets all suport by request identifier.
+        /// </summary>
+        /// <param name="IdSolicitud">The identifier solicitud.</param>
+        /// <returns></returns>
+        Task<ResponseBase<List<Models.InhumacionCremacion.DocumentosSoporte>>> GetAllSuportByRequestId(string IdSolicitud);
     }
 }

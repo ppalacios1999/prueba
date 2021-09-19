@@ -423,8 +423,6 @@ namespace Backend.InhumacionCremacion.BusinessRules
                         solicitudDTO.Persona.Add(personaDTO);
                     }
                 }
-                var personaDB = _repositoryPersona.GetAllAsync(p => p.IdSolicitud.Equals(Guid.Parse("10A94D2D-20FF-4DBB-B1F0-3C07202FF121")));
-
                 return new ResponseBase<List<Entities.DTOs.SolicitudDTO>>(code: System.Net.HttpStatusCode.OK, message: "Solicitud OK", data: resultSol.ToList());
             }
             catch (Exception ex)
