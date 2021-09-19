@@ -4,8 +4,8 @@ namespace Backend.InhumacionCremacion.Entities.DTOs
 {
     public class PersonaDTO
     {
-        //se crea en backend
-        //public Guid IdPersona { get; set; }
+        //validar not mape
+        public Guid IdPersona { get; set; }
         public Guid TipoIdentificacion { get; set; }
         public string NumeroIdentificacion { get; set; }
         public string PrimerNombre { get; set; }
@@ -25,5 +25,8 @@ namespace Backend.InhumacionCremacion.Entities.DTOs
         public Guid? IdTipoProfesional { get; set; }
         //validar not mape
         public Guid? IdUbicacionPersona { get; set; }
+        public bool? Estado { get; set; }
+        //validar not mape
+        public Guid IdSolicitud { get; set; }
     }
 }
