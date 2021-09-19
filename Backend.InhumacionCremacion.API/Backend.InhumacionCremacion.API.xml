@@ -38,11 +38,17 @@
             The request business
             </summary>
         </member>
-        <member name="M:Backend.InhumacionCremacion.API.Controllers.RequestController.#ctor(Backend.InhumacionCremacion.Entities.Interface.Business.IRequestBusiness)">
+        <member name="F:Backend.InhumacionCremacion.API.Controllers.RequestController.UpdateRequestBusiness">
+            <summary>
+            The update request business
+            </summary>
+        </member>
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.RequestController.#ctor(Backend.InhumacionCremacion.Entities.Interface.Business.IRequestBusiness,Backend.InhumacionCremacion.Entities.Interface.Business.IUpdateRequestBusiness)">
             <summary>
             Initializes a new instance of the <see cref="T:Backend.InhumacionCremacion.API.Controllers.RequestController"/> class.
             </summary>
             <param name="requestBusiness">The request business.</param>
+            <param name="updateRequestBusiness">The update request business.</param>
         </member>
         <member name="M:Backend.InhumacionCremacion.API.Controllers.RequestController.AddRquest(Backend.InhumacionCremacion.Entities.DTOs.RequestDTO)">
             <summary>
@@ -76,6 +82,13 @@
             <summary>
             GetAllRequest
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.RequestController.UpdateRequest(Backend.InhumacionCremacion.Entities.DTOs.SolicitudDTO)">
+            <summary>
+            Updates the request.
+            </summary>
+            <param name="solicitudDTO">The solicitud dto.</param>
             <returns></returns>
         </member>
         <member name="T:Backend.InhumacionCremacion.API.Controllers.SupportDocumentsController">
