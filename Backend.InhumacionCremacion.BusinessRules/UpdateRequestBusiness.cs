@@ -77,7 +77,6 @@ namespace Backend.InhumacionCremacion.BusinessRules
         }
         #endregion
 
-
         #region Methods
         /// <summary>
         /// UpdateRequest

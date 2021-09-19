@@ -1,8 +1,10 @@
 ﻿using Backend.InhumacionCremacion.Entities.DTOs;
+using Backend.InhumacionCremacion.Entities.Models.InhumacionCremacion;
 using Backend.InhumacionCremacion.Entities.Responses;
 using Backend.InhumacionCremacion.Utilities.Telemetry;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -66,6 +68,31 @@ namespace Backend.InhumacionCremacion.BusinessRules
             {
                 _telemetryException.RegisterException(ex);
                 return new ResponseBase<bool>(code: HttpStatusCode.InternalServerError, message: ex.Message, data: false);
+            }
+        }
+
+        /// <summary>
+        /// Gets all suport by request identifier.
+        /// </summary>
+        /// <param name="IdSolicitud">The identifier solicitud.</param>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public async Task<ResponseBase<List<DocumentosSoporte>>> GetAllSuportByRequestId(string IdSolicitud)
+        {
+            try
+            {
+                var result = await _repositoryDocumentosSoporte.GetAllAsync(predicate: p => p.IdSolicitud.Equals(Guid.Parse(IdSolicitud)));
+
+                if (result == null)
+                {
+                    return new ResponseBase<List<DocumentosSoporte>>(code: HttpStatusCode.OK, message: "No se encontraron resultados");
+                }
+                return new ResponseBase<List<DocumentosSoporte>>(code: HttpStatusCode.OK, message: "Solicitud OK", data: result.ToList(), count: result.Count());
+            }
+            catch (Exception ex)
+            {
+                _telemetryException.RegisterException(ex);
+                return new ResponseBase<List<DocumentosSoporte>>(code: HttpStatusCode.InternalServerError, message: ex.Message);
             }
         }
         #endregion

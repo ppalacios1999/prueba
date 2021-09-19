@@ -115,6 +115,13 @@
             <param name="requestSupportDocumentsDTO">The request support documents dto.</param>
             <returns></returns>
         </member>
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.SupportDocumentsController.GetAllSuportByRequestId(System.String)">
+            <summary>
+            Adds the support documents.
+            </summary>
+            <param name="IdSolicitud">The identifier solicitud.</param>
+            <returns></returns>
+        </member>
         <member name="T:Backend.InhumacionCremacion.API.Injections.BusinessInjection">
             <summary>
             Business Injection

@@ -42,6 +42,18 @@ namespace Backend.InhumacionCremacion.API.Controllers
             var result = await _supportDocumentsBusiness.AddSupportDocuments(requestSupportDocumentsDTO);
             return StatusCode(result.Code, result);
         }
+
+        /// <summary>
+        /// Adds the support documents.
+        /// </summary>
+        /// <param name="IdSolicitud">The identifier solicitud.</param>
+        /// <returns></returns>
+        [HttpGet("GetAllSuportByRequestId/{IdSolicitud}")]
+        public async Task<ActionResult> GetAllSuportByRequestId(string IdSolicitud)
+        {
+            var result = await _supportDocumentsBusiness.GetAllSuportByRequestId(IdSolicitud);
+            return StatusCode(result.Code, result);
+        }
         #endregion
     }
 }
