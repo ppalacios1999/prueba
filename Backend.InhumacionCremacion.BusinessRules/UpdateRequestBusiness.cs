@@ -227,7 +227,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
                         personaDB.IdEtnia = persona.IdEtnia;
                         personaDB.IdRegimen = persona.IdRegimen;
                         personaDB.IdTipoPersona = persona.IdTipoPersona;
-                        personaDB.IdSolicitud = persona.IdSolicitud;
+                        personaDB.IdSolicitud = personaDB.IdSolicitud;
                         personaDB.IdParentesco = persona.IdParentesco;
                         personaDB.IdLugarExpedicion = persona.IdLugarExpedicion;
                         personaDB.IdTipoProfesional = persona.IdTipoProfesional;
