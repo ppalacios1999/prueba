@@ -300,20 +300,14 @@ namespace Backend.InhumacionCremacion.BusinessRules
 
                 var resultLugarDefuncion = await _repositoryLugarDefuncion.GetAsync(predicate: p => p.IdLugarDefuncion.Equals(Guid.Parse(resultSolicitud.Select(x => x.IdLugarDefuncion).FirstOrDefault().ToString())));
 
-                var IdUbicacionPersona = new System.Guid();
+                List<System.Guid> IdUbicacionPersona = new List<System.Guid>();
 
-                foreach (var item in resultSolicitud)
+                foreach (var persona in resultSolicitud)
                 {
-                    foreach (var persona in item.Persona)
-                    {
-                        if (persona.IdUbicacionPersona != Guid.Parse("00000000-0000-0000-0000-000000000000"))
-                        {
-                            IdUbicacionPersona = persona.IdUbicacionPersona.Value;
-                        }
-                    }
+                    IdUbicacionPersona.AddRange(persona.Persona.Select(x => x.IdUbicacionPersona.Value));
                 }
 
-                var resultUbicacionPersona = await _repositoryUbicacionPersona.GetAsync(p => p.IdUbicacionPersona.Equals(IdUbicacionPersona));
+                var resultUbicacionPersona = await _repositoryUbicacionPersona.GetAsync(w => w.IdPaisResidencia != Guid.Empty && IdUbicacionPersona.Any(a => a.Equals(w.IdUbicacionPersona)));
 
                 var resultSol = new List<Entities.DTOs.SolicitudDTO>();
 
