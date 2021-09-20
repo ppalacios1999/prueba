@@ -231,7 +231,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
                         personaDB.IdParentesco = persona.IdParentesco;
                         personaDB.IdLugarExpedicion = persona.IdLugarExpedicion;
                         personaDB.IdTipoProfesional = persona.IdTipoProfesional;
-                        personaDB.IdUbicacionPersona = persona.IdUbicacionPersona;
+                        personaDB.IdUbicacionPersona = requestDTO.UbicacionPersona.IdUbicacionPersona;
 
 
                         await _repositoryPersona.UpdateAsync(personaDB);
