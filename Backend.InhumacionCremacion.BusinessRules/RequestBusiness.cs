@@ -254,7 +254,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
             catch (Exception ex)
             {
                 _telemetryException.RegisterException(ex);
-                throw;
+                return new ResponseBase<string>(code: System.Net.HttpStatusCode.InternalServerError, message: ex.Message);
             }
         }
 
