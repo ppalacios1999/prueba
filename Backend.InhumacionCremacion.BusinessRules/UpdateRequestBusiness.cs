@@ -179,12 +179,12 @@ namespace Backend.InhumacionCremacion.BusinessRules
                 foreach (var persona in requestDTO.Persona)
                 {
                     if (persona.IdTipoPersona == Guid.Parse("342d934b-c316-46cb-a4f3-3aac5845d246") &&
-                        requestDTO.UbicacionPersona.IdPaisResidencia != Guid.Parse("00000000-0000-0000-0000-000000000000") &&
-                        requestDTO.UbicacionPersona.IdDepartamentoResidencia != Guid.Parse("00000000-0000-0000-0000-000000000000") &&
-                        requestDTO.UbicacionPersona.IdCiudadResidencia != Guid.Parse("00000000-0000-0000-0000-000000000000") &&
-                        requestDTO.UbicacionPersona.IdLocalidadResidencia != Guid.Parse("00000000-0000-0000-0000-000000000000") &&
-                        requestDTO.UbicacionPersona.IdAreaResidencia != Guid.Parse("00000000-0000-0000-0000-000000000000") &&
-                        requestDTO.UbicacionPersona.IdBarrioResidencia != Guid.Parse("00000000-0000-0000-0000-000000000000"))
+                        requestDTO.UbicacionPersona.IdPaisResidencia != Guid.Empty &&
+                        requestDTO.UbicacionPersona.IdDepartamentoResidencia != Guid.Empty &&
+                        requestDTO.UbicacionPersona.IdCiudadResidencia != Guid.Empty &&
+                        requestDTO.UbicacionPersona.IdLocalidadResidencia != Guid.Empty &&
+                        requestDTO.UbicacionPersona.IdAreaResidencia != Guid.Empty &&
+                        requestDTO.UbicacionPersona.IdBarrioResidencia != Guid.Empty)
                     {
                         // si el tipo de persona es madre y los valores son diferentes de: "00000000-0000-0000-0000-000000000000" se inserta la ubicacion
 
@@ -232,19 +232,15 @@ namespace Backend.InhumacionCremacion.BusinessRules
                         personaDB.IdLugarExpedicion = persona.IdLugarExpedicion;
                         personaDB.IdTipoProfesional = persona.IdTipoProfesional;
                         personaDB.IdUbicacionPersona = requestDTO.UbicacionPersona.IdUbicacionPersona;
-
-
                         await _repositoryPersona.UpdateAsync(personaDB);
                     }
                     else // si el tipo de persona es diferente de la madre no tiene ubicacion
                     {
                         var personaDB = await _repositoryPersona.GetAsync(x => x.IdPersona == persona.IdPersona);
-
                         if (personaDB == null)
                         {
                             return new ResponseBase<string>(System.Net.HttpStatusCode.BadRequest, "No se encontró el codigo para actualizar");
                         }
-
                         personaDB.TipoIdentificacion = persona.TipoIdentificacion;
                         personaDB.NumeroIdentificacion = persona.NumeroIdentificacion;
                         personaDB.PrimerNombre = persona.PrimerNombre;
@@ -267,7 +263,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
                         personaDB.IdUbicacionPersona = persona.IdUbicacionPersona;
                     }
                 }
-                return new ResponseBase<string>(code: System.Net.HttpStatusCode.OK, message: "Solicitud");
+                return new ResponseBase<string>(code: System.Net.HttpStatusCode.OK, data: requestDTO.IdSolicitud.ToString(), message: "Solicitud");
             }
             catch (System.Exception ex)
             {
