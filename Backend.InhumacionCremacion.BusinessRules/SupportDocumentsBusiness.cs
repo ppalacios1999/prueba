@@ -100,22 +100,30 @@ namespace Backend.InhumacionCremacion.BusinessRules
         {
             try
             {
-                var suportBD = await _repositoryDocumentosSoporte.GetAllAsync(w => w.IdSolicitud.Equals(Guid.Parse(documentosSoporte.FirstOrDefault().IdSolicitud.ToString())));
-
-                if (suportBD == null)
+                foreach (var item in documentosSoporte)
                 {
-                    return new ResponseBase<bool>(System.Net.HttpStatusCode.BadRequest, "No se encontró la solicitud para actualizar.");
-                }
+                    var suportBD = await _repositoryDocumentosSoporte.GetAsync(w => w.IdDocumentoSoporte.Equals(item.IdDocumentoSoporte));
 
-                var listUpdat = suportBD.Zip(documentosSoporte, (s, u) => new { suportBD = s, documentosSoporte = u });
-
-                foreach (var item in listUpdat)
-                {
+                    if (suportBD == null)
                     {
-                        item.suportBD.FechaModificacion = item.documentosSoporte.FechaModificacion;
-                        await _repositoryDocumentosSoporte.UpdateAsync(item.suportBD);
+                        await _repositoryDocumentosSoporte.AddAsync(new Entities.Models.InhumacionCremacion.DocumentosSoporte
+                        {
+                            IdDocumentoSoporte = Guid.NewGuid(),
+                            IdSolicitud = item.IdSolicitud,
+                            FechaRegistro = System.DateTime.Now,
+                            FechaModificacion = System.DateTime.Now,
+                            IdTipoDocumentoSoporte = item.IdTipoDocumentoSoporte,
+                            IdUsuario = item.IdUsuario,
+                            Path = item.Path
+                        });
+                    }
+                    else
+                    {
+                        suportBD.FechaModificacion = item.FechaModificacion;
+                        await _repositoryDocumentosSoporte.UpdateAsync(suportBD);
                     }
                 }
+
                 return new ResponseBase<bool>(code: HttpStatusCode.OK, message: "Solicitud OK", data: true);
             }
             catch (Exception ex)
