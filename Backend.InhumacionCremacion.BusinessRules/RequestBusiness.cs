@@ -174,12 +174,12 @@ namespace Backend.InhumacionCremacion.BusinessRules
                 foreach (var personas in requestDTO.Solicitud.Persona)
                 {
                     if (personas.IdTipoPersona == Guid.Parse("342d934b-c316-46cb-a4f3-3aac5845d246") &&
-                        requestDTO.Solicitud.UbicacionPersona.IdPaisResidencia != Guid.Parse("00000000-0000-0000-0000-000000000000") &&
-                        requestDTO.Solicitud.UbicacionPersona.IdDepartamentoResidencia != Guid.Parse("00000000-0000-0000-0000-000000000000") &&
-                        requestDTO.Solicitud.UbicacionPersona.IdCiudadResidencia != Guid.Parse("00000000-0000-0000-0000-000000000000") &&
-                        requestDTO.Solicitud.UbicacionPersona.IdLocalidadResidencia != Guid.Parse("00000000-0000-0000-0000-000000000000") &&
-                        requestDTO.Solicitud.UbicacionPersona.IdAreaResidencia != Guid.Parse("00000000-0000-0000-0000-000000000000") &&
-                        requestDTO.Solicitud.UbicacionPersona.IdBarrioResidencia != Guid.Parse("00000000-0000-0000-0000-000000000000"))
+                        requestDTO.Solicitud.UbicacionPersona.IdPaisResidencia != Guid.Empty &&
+                        requestDTO.Solicitud.UbicacionPersona.IdDepartamentoResidencia != Guid.Empty &&
+                        requestDTO.Solicitud.UbicacionPersona.IdCiudadResidencia != Guid.Empty &&
+                        requestDTO.Solicitud.UbicacionPersona.IdLocalidadResidencia != Guid.Empty &&
+                        requestDTO.Solicitud.UbicacionPersona.IdAreaResidencia != Guid.Empty &&
+                        requestDTO.Solicitud.UbicacionPersona.IdBarrioResidencia != Guid.Empty)
                     {// si el tipo de persona es madre y los valores son diferentes de: "00000000-0000-0000-0000-000000000000" se inserta la ubicacion
                         IdUbicacionPersona = Guid.NewGuid();
                         await _repositoryUbicacionPersona.AddAsync(new Entities.Models.InhumacionCremacion.UbicacionPersona
