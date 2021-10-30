@@ -9,6 +9,7 @@ namespace Backend.InhumacionCremacion.Entities.Models.InhumacionCremacion
         public DateTime FechaRegistro { get; set; }
         public Guid Usuario { get; set; }
         public Guid Estado { get; set; }
+        public Guid IdSolicitud { get; set; }
         public string Observacion { get; set; }
     }
 }
