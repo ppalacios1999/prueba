@@ -19,6 +19,7 @@ namespace Backend.InhumacionCremacion.API.Injections
             services.AddTransient<IGeneratePDFBusiness, GeneratePDFBusiness>();
             services.AddTransient<ISupportDocumentsBusiness, SupportDocumentsBusiness>();
             services.AddTransient<IUpdateRequestBusiness, UpdateRequestBusiness>();
+            services.AddTransient<ISeguimientoBusiness, SeguimientoBusiness>();
         }
     }
 }
