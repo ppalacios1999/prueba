@@ -9,9 +9,10 @@ namespace Backend.InhumacionCremacion.Entities.Interface.Business
     public interface IGeneratePDFBusiness
     {
         /// <summary>
-        /// Generates the PDF.
+        /// GeneratePDF
         /// </summary>
+        /// <param name="idSolicitud"></param>
         /// <returns></returns>
-        Task<ResponseBase<dynamic>> GeneratePDF();
+        Task<ResponseBase<dynamic>> GeneratePDF(string idSolicitud);
     }
 }

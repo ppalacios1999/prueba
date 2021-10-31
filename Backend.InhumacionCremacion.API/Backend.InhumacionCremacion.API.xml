@@ -21,7 +21,7 @@
             </summary>
             <param name="generatePDFBusiness">The generate PDF business.</param>
         </member>
-        <member name="M:Backend.InhumacionCremacion.API.Controllers.GeneratePDFController.GeneratePDF">
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.GeneratePDFController.GeneratePDF(System.String)">
             <summary>
             Generates the PDF.
             </summary>
@@ -89,6 +89,37 @@
             Updates the request.
             </summary>
             <param name="solicitudDTO">The solicitud dto.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Backend.InhumacionCremacion.API.Controllers.SeguimientoController">
+            <summary>
+            SeguimientoController
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+        </member>
+        <member name="F:Backend.InhumacionCremacion.API.Controllers.SeguimientoController.SeguimientoBusiness">
+            <summary>
+            The request business
+            </summary>
+        </member>
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.SeguimientoController.#ctor(Backend.InhumacionCremacion.Entities.Interface.Business.ISeguimientoBusiness)">
+            <summary>
+            SeguimientoController
+            </summary>
+            <param name="seguimientoBusiness"></param>
+        </member>
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.SeguimientoController.AddSeguimiento(Backend.InhumacionCremacion.Entities.Models.InhumacionCremacion.Seguimiento)">
+            <summary>
+            AddSeguimiento
+            </summary>
+            <param name="seguimiento"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.SeguimientoController.GetSeguimientoBySolicitud(System.String)">
+            <summary>
+            GetSeguimientoBySolicitud
+            </summary>
+            <param name="idSolicitud"></param>
             <returns></returns>
         </member>
         <member name="T:Backend.InhumacionCremacion.API.Controllers.SupportDocumentsController">
