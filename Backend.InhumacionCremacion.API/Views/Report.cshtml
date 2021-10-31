@@ -1,4 +1,8 @@
-﻿<html>
+﻿
+@model Backend.InhumacionCremacion.Entities.DTOs.DetallePdfDto
+@*@model Backend.InhumacionCremacion.Entities.DTOs.TesData*@
+
+<html>
 
 <head>
     <meta http-equiv=Content-Type content="text/html; charset=utf-8">
@@ -38,8 +42,7 @@ div.WordSection1
 
     <div class=WordSection1>
 
-        <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
-line-height:normal'>
+        <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center; line-height:normal'>
             <span lang=ES-CO style='font-size:20.0pt'>
                 LICENCIAS
                 INHUMACION / CREMACION INDIVIDUAL
@@ -60,12 +63,11 @@ line-height:normal'>
 
         <div style='border:solid windowtext 1.0pt;padding:1.0pt 4.0pt 5.0pt 4.0pt'>
 
-            <p class=MsoNormal style='margin-bottom:0in;line-height:normal;border:none;
-padding:0in'>
+            <p class=MsoNormal style='margin-bottom:0in;line-height:normal;border:none; padding:0in'>
                 <b>
                     <span lang=ES-CO style='font-size:12.0pt'>
                         SECRETARIA DISTRITAL
-                        DE SALUD DE BOGOTA D C COLOMBIA                   10/05/2021    16:20:15
+                        DE SALUD DE BOGOTA D C COLOMBIA                  @Model.FechaActual, @Model.Hora
                     </span>
                 </b>
             </p>
@@ -80,7 +82,7 @@ padding:0in'>
             <b>
                 <span lang=ES-CO style='font-size:12.0pt'>
                     LICENCIA DE CREMACION INDIVIDUAL N° 2315                   
-                    CERTIFICADO DE DEFUNCION N° 7256645898
+                    CERTIFICADO DE DEFUNCION N° @Model.NumeroLicencia
                 </span>
             </b>
         </p>
@@ -92,14 +94,14 @@ padding:0in'>
                 <span lang=ES-CO style='font-size:12.0pt'>FUNERARIA GAVIRIA</span>
             </b><span lang=ES-CO>
                 <b>Fecha</b>: 
-                10/05/2021    16:20:15
+                @Model.FechaActual, @Model.Hora
             </span>
         </p>
 
         <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
             <b>
                 <span lang=ES-CO>En calidad de</span>
-            </b><span lang=ES-CO>: TRAMITADOR DAMARIS OCHICA</span>
+            </b><span lang=ES-CO>: @Model.FullNameTramitador</span>
         </p>
 
         <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
@@ -117,10 +119,7 @@ padding:0in'>
         <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
             <b>
                 <span lang=ES-CO>Nombres Apellidos</span>
-            </b><span lang=ES-CO>
-                : PEÑA HOYOS DIEGO
-                FERNANDO                                                                 <b>Nacionalidad</b>:
-                COLOMBIA
+            </b><span lang=ES-CO>:@Model.FullNameFallecido                                                          <b>Nacionalidad</b>: COLOMBIA
             </span>
         </p>
 
@@ -128,8 +127,8 @@ padding:0in'>
             <b>
                 <span lang=ES-CO>Fecha de Fallecido</span>
             </b><span lang=ES-CO>
-                : 08/05/2021                                                               
-                <b>Hora</b>: 14:25                            <b>Género</b>: MASCULINO
+                @Model.FechaFallecido
+                Hora</b>: @Model.Hora               <b>Género</b>: MASCULINO
             </span>
         </p>
 
@@ -164,11 +163,12 @@ padding:0in'>
         <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
             <b>
                 <span lang=ES-CO>Nombre(s)</span>
-            </b><span lang=ES-CO>
-                : KATERINE ANDREA MOLANO
-                CASTILLO
-            </span>
+            </b>
+                    <span lang=ES-CO>: @Model.FullNameMedico </span>
         </p>
+
+
+        @*@foreach (var x in Request.ServerVariables) {<li>@x</li>}*@
 
         <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>
             <span lang=ES-CO>MEDICO</span>

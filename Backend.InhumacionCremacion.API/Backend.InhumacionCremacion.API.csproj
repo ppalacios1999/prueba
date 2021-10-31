@@ -17,7 +17,7 @@
   <ItemGroup>
     <None Include="Views\Test.cshtml" />
     <None Include="Views\TestBootstrapSSL.cshtml" />
-    <None Include="Views\Test_Form.cshtml" />
+    <None Include="Views\Report.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
