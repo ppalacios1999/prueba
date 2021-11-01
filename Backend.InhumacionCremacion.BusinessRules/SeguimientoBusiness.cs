@@ -61,7 +61,8 @@ namespace Backend.InhumacionCremacion.BusinessRules
                     Estado = seguimiento.Estado,
                     FechaRegistro = DateTime.Now,
                     Usuario = seguimiento.Usuario,
-                    Observacion = seguimiento.Observacion
+                    Observacion = seguimiento.Observacion,
+                    IdSolicitud = seguimiento.IdSolicitud
                 });
 
                 return new ResponseBase<bool>(code: HttpStatusCode.OK, message: "Solicitud OK", data: true);
