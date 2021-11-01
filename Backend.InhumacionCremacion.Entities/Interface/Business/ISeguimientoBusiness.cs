@@ -11,7 +11,7 @@ namespace Backend.InhumacionCremacion.Entities.Interface.Business
         /// </summary>
         /// <param name="idSolicitud"></param>
         /// <returns></returns>
-        Task<ResponseBase<List<Models.InhumacionCremacion.Seguimiento>>> GetSeguimientoBySolicitud(string idSolicitud);
+        Task<ResponseBase<List<Entities.DTOs.SeguimientoDto>>> GetSeguimientoBySolicitud(string idSolicitud);
 
         /// <summary>
         /// AddSeguimiento
