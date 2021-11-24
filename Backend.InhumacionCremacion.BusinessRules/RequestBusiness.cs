@@ -332,13 +332,13 @@ namespace Backend.InhumacionCremacion.BusinessRules
                         //ubicacion persona validado
                         UbicacionPersona = new Entities.DTOs.UbicacionPersonaDTO
                         {
-                            IdUbicacionPersona = resultUbicacionPersona.IdUbicacionPersona,
-                            IdPaisResidencia = resultUbicacionPersona.IdPaisResidencia,
-                            IdDepartamentoResidencia = resultUbicacionPersona.IdDepartamentoResidencia,
-                            IdCiudadResidencia = resultUbicacionPersona.IdCiudadResidencia,
-                            IdLocalidadResidencia = resultUbicacionPersona.IdLocalidadResidencia,
-                            IdAreaResidencia = resultUbicacionPersona.IdAreaResidencia,
-                            IdBarrioResidencia = resultUbicacionPersona.IdBarrioResidencia
+                            IdUbicacionPersona = resultUbicacionPersona?.IdUbicacionPersona,
+                            IdPaisResidencia = resultUbicacionPersona?.IdPaisResidencia,
+                            IdDepartamentoResidencia = resultUbicacionPersona?.IdDepartamentoResidencia,
+                            IdCiudadResidencia = resultUbicacionPersona?.IdCiudadResidencia,
+                            IdLocalidadResidencia = resultUbicacionPersona?.IdLocalidadResidencia,
+                            IdAreaResidencia = resultUbicacionPersona?.IdAreaResidencia,
+                            IdBarrioResidencia = resultUbicacionPersona?.IdBarrioResidencia
                         },
 
                         Persona = new List<Entities.DTOs.PersonaDTO>(),
