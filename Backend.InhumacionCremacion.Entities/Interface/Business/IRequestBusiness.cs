@@ -1,4 +1,5 @@
-﻿using Backend.InhumacionCremacion.Entities.Responses;
+﻿using System;
+using Backend.InhumacionCremacion.Entities.Responses;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -26,13 +27,27 @@ namespace Backend.InhumacionCremacion.Entities.Interface.Business
         /// <param name="idUser">The identifier user.</param>
         /// <returns></returns>
         Task<ResponseBase<int>> GetCodeVentanillaByIdUser(string idUser);
-
+        
         /// <summary>
         /// Gets the request by identifier.
         /// </summary>
         /// <param name="idSolicitud">The identifier solicitud.</param>
         /// <returns></returns>
-        Task<ResponseBase<List<Entities.DTOs.SolicitudDTO>>> GetRequestById(string idSolicitud);
+        ///Task<ResponseBase<List<Entities.DTOs.SolicitudDTO>>> GetRequestById(string idSolicitud);
+
+        /// <summary>
+        /// Gets the request by identifier.
+        /// </summary>
+        /// <param name="idEstado">The identifier solicitud.</param>
+        /// <returns></returns>
+        Task<ResponseBase<List<Entities.DTOs.SolicitudDTO>>> GetRequestByIdEstado(string idEstado);
+        
+        /// <summary>
+        /// Gets the request by identifier.
+        /// </summary>
+        /// <param name="idSolicitud">The identifier solicitud.</param>
+        /// <returns></returns>
+        Task<ResponseBase<List<Entities.DTOs.SolicitudDTO>>> GetRequestByIdSolicitud(string idSolicitud);
 
         ///// <summary>
         ///// Gets the detail request by identifier user.
@@ -46,6 +61,15 @@ namespace Backend.InhumacionCremacion.Entities.Interface.Business
         /// </summary>
         /// <returns></returns>
         Task<ResponseBase<List<DTOs.RequestDetailDTO>>> GetAllRequest();
+        
+
+        
+        
+        
+
+  
+
+
 
 
     }
