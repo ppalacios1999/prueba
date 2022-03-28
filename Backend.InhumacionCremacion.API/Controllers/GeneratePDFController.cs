@@ -1,11 +1,11 @@
-﻿using Backend.InhumacionCremacion.Entities.Interface.Business;
+﻿using System.Threading.Tasks;
+using Backend.InhumacionCremacion.Entities.Interface.Business;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace Backend.InhumacionCremacion.API.Controllers
 {
     /// <summary>
-    /// GeneratePDFController
+    ///     GeneratePDFController
     /// </summary>
     /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
     [Route("api/[controller]")]
@@ -13,12 +13,12 @@ namespace Backend.InhumacionCremacion.API.Controllers
     public class GeneratePDFController : ControllerBase
     {
         /// <summary>
-        /// The generate PDF business
+        ///     The generate PDF business
         /// </summary>
         private readonly IGeneratePDFBusiness _generatePDFBusiness;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GeneratePDFController"/> class.
+        ///     Initializes a new instance of the <see cref="GeneratePDFController" /> class.
         /// </summary>
         /// <param name="generatePDFBusiness">The generate PDF business.</param>
         public GeneratePDFController(IGeneratePDFBusiness generatePDFBusiness)
@@ -27,7 +27,7 @@ namespace Backend.InhumacionCremacion.API.Controllers
         }
 
         /// <summary>
-        /// Generates the PDF.
+        ///     Generates the PDF.
         /// </summary>
         /// <returns></returns>
         [HttpGet("GeneratePDF/{idSolicitud}")]

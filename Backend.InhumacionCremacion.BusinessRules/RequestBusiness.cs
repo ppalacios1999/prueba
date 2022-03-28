@@ -56,6 +56,13 @@ namespace Backend.InhumacionCremacion.BusinessRules
         /// </summary>
         private readonly Entities.Interface.Repository.IBaseRepositoryCommons<Entities.Models.Commons.Dominio> _repositoryDominio;
 
+
+
+        /// <summary>
+        /// The repository Resumen Solicitud
+        /// </summary>
+        private readonly Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.ResumenSolicitud> _repositoryResumenSolicitud;
+
         #endregion
 
         #region Constructor                                                
@@ -77,7 +84,9 @@ namespace Backend.InhumacionCremacion.BusinessRules
                                Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.InstitucionCertificaFallecimiento> repositoryInstitucionCertificaFallecimiento,
                                Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.LugarDefuncion> repositoryLugarDefuncion,
                                Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.Persona> repositoryPersona,
-                               Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.UbicacionPersona> repositoryUbicacionPersona)
+                               Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.UbicacionPersona> repositoryUbicacionPersona,
+                               Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.ResumenSolicitud> repositoryResumenSolicitud
+            )
         {
             _telemetryException = telemetryException;
             _repositorySolicitud = repositorySolicitud;
@@ -87,6 +96,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
             _repositoryPersona = repositoryPersona;
             _repositoryUbicacionPersona = repositoryUbicacionPersona;
             _repositoryDominio = repositoryDominio;
+            _repositoryResumenSolicitud = repositoryResumenSolicitud;
         }
         #endregion
 
@@ -171,6 +181,27 @@ namespace Backend.InhumacionCremacion.BusinessRules
                 // en el front, para los valores nulos se debe enciar el siguiente valor: "00000000-0000-0000-0000-000000000000"
                 //342d934b-c316-46cb-a4f3-3aac5845d246 tipo persona madre
                 Guid IdUbicacionPersona = Guid.Empty;
+
+                //ResumenSolicitud 
+                //ULTIMO CAMBIO - PRUEBA cambioasdas
+                Guid NumeroTramite = Guid.NewGuid();
+                Guid EstadoSolicitud = Guid.NewGuid();
+                // HAY QUE PROBAR ESTE PUNTO
+                await _repositoryResumenSolicitud.AddAsync(new Entities.Models.InhumacionCremacion.ResumenSolicitud
+                { 
+                    IdSolicitud = IdSolicitud,
+                    NumeroTramite = NumeroTramite,
+                    EstadoSolicitud = EstadoSolicitud,
+                    NumeroLicencia = requestDTO.Solicitud.ResumenSolicitud.NumeroLicencia,
+                    CorreoSolicitante = requestDTO.Solicitud.ResumenSolicitud.CorreoSolicitante,
+                    CorreoFuneraria = requestDTO.Solicitud.ResumenSolicitud.CorreoFuneraria,
+                    CorreoCementerio = requestDTO.Solicitud.ResumenSolicitud.CorreoCementerio,
+                    TipoSeguimiento = requestDTO.Solicitud.ResumenSolicitud.TipoSeguimiento,
+                    NombreSolicitante = requestDTO.Solicitud.ResumenSolicitud.NombreSolicitante,
+                    ApellidoSolicitante = requestDTO.Solicitud.ResumenSolicitud.ApellidoSolicitante,
+                    NumeroDocumentoSolicitante = requestDTO.Solicitud.ResumenSolicitud.NumeroDocumentoSolicitante,
+                    TipoDocumentoSolicitante = requestDTO.Solicitud.ResumenSolicitud.TipoDocumentoSolicitante,
+                });
 
                 foreach (var personas in requestDTO.Solicitud.Persona)
                 {

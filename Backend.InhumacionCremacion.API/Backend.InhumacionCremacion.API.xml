@@ -4,78 +4,116 @@
         <name>Backend.InhumacionCremacion.API</name>
     </assembly>
     <members>
-        <member name="T:Backend.InhumacionCremacion.API.Controllers.GeneratePDFController">
+        <member name="T:Backend.InhumacionCremacion.API.Controllers.FormatoController">
             <summary>
-            GeneratePDFController
+            FormatoController
             </summary>
             <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
         </member>
-        <member name="F:Backend.InhumacionCremacion.API.Controllers.GeneratePDFController._generatePDFBusiness">
-            <summary>
-            The generate PDF business
-            </summary>
-        </member>
-        <member name="M:Backend.InhumacionCremacion.API.Controllers.GeneratePDFController.#ctor(Backend.InhumacionCremacion.Entities.Interface.Business.IGeneratePDFBusiness)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Backend.InhumacionCremacion.API.Controllers.GeneratePDFController"/> class.
-            </summary>
-            <param name="generatePDFBusiness">The generate PDF business.</param>
-        </member>
-        <member name="M:Backend.InhumacionCremacion.API.Controllers.GeneratePDFController.GeneratePDF(System.String)">
-            <summary>
-            Generates the PDF.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:Backend.InhumacionCremacion.API.Controllers.RequestController">
-            <summary>
-            RequestController
-            </summary>
-            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
-        </member>
-        <member name="F:Backend.InhumacionCremacion.API.Controllers.RequestController.RequestBusiness">
+        <member name="F:Backend.InhumacionCremacion.API.Controllers.FormatoController.FormatoBusiness">
             <summary>
             The request business
             </summary>
         </member>
-        <member name="F:Backend.InhumacionCremacion.API.Controllers.RequestController.UpdateRequestBusiness">
-            <summary>
-            The update request business
-            </summary>
-        </member>
-        <member name="M:Backend.InhumacionCremacion.API.Controllers.RequestController.#ctor(Backend.InhumacionCremacion.Entities.Interface.Business.IRequestBusiness,Backend.InhumacionCremacion.Entities.Interface.Business.IUpdateRequestBusiness)">
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.FormatoController.#ctor(Backend.InhumacionCremacion.Entities.Interface.Business.IFormatoBusiness)">
             <summary>
             Initializes a new instance of the <see cref="T:Backend.InhumacionCremacion.API.Controllers.RequestController"/> class.
             </summary>
             <param name="requestBusiness">The request business.</param>
             <param name="updateRequestBusiness">The update request business.</param>
         </member>
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.FormatoController.GetFormatoByTipoPlantilla(System.String)">
+            <summary>
+            GetFormatoByTipoPlantilla
+            </summary>
+            <param name="idPlantilla"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Backend.InhumacionCremacion.API.Controllers.GeneratePDFController">
+            <summary>
+                GeneratePDFController
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+        </member>
+        <member name="F:Backend.InhumacionCremacion.API.Controllers.GeneratePDFController._generatePDFBusiness">
+            <summary>
+                The generate PDF business
+            </summary>
+        </member>
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.GeneratePDFController.#ctor(Backend.InhumacionCremacion.Entities.Interface.Business.IGeneratePDFBusiness)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Backend.InhumacionCremacion.API.Controllers.GeneratePDFController" /> class.
+            </summary>
+            <param name="generatePDFBusiness">The generate PDF business.</param>
+        </member>
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.GeneratePDFController.GeneratePDF(System.String)">
+            <summary>
+                Generates the PDF.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Backend.InhumacionCremacion.API.Controllers.RequestController">
+            <summary>
+                RequestController
+            </summary>
+            <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
+        </member>
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.RequestController.#ctor(Backend.InhumacionCremacion.Entities.Interface.Business.IRequestBusiness,Backend.InhumacionCremacion.Entities.Interface.Business.IUpdateRequestBusiness)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Backend.InhumacionCremacion.API.Controllers.RequestController" /> class.
+            </summary>
+            <param name="requestBusiness">The request business.</param>
+            <param name="updateRequestBusiness">The update request business.</param>
+        </member>
+        <member name="F:Backend.InhumacionCremacion.API.Controllers.RequestController.RequestBusiness">
+            <summary>
+                The request business
+            </summary>
+        </member>
+        <member name="F:Backend.InhumacionCremacion.API.Controllers.RequestController.UpdateRequestBusiness">
+            <summary>
+                The update request business
+            </summary>
+        </member>
         <member name="M:Backend.InhumacionCremacion.API.Controllers.RequestController.AddRquest(Backend.InhumacionCremacion.Entities.DTOs.RequestDTO)">
             <summary>
-            Adds the rquest.
+                Adds the rquest.
             </summary>
             <param name="requestDTO">The request dto.</param>
             <returns></returns>
         </member>
         <member name="M:Backend.InhumacionCremacion.API.Controllers.RequestController.GetRequestByIdUser(System.String)">
             <summary>
-            GetRequestByIdUser
+                GetRequestByIdUser
             </summary>
             <param name="idUser"></param>
             <returns></returns>
         </member>
-        <member name="M:Backend.InhumacionCremacion.API.Controllers.RequestController.GetRequestById(System.String)">
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.RequestController.GetRequestByIdEstado(System.String)">
             <summary>
-            GetRequestById
+                GetRequestByIdEstado
             </summary>
             <param name="idSolicitud"></param>
             <returns></returns>
         </member>
         <member name="M:Backend.InhumacionCremacion.API.Controllers.RequestController.GetCodeVentanillaByIdUser(System.String)">
             <summary>
-            Gets the code ventanilla by identifier user.
+                Gets the code ventanilla by identifier user.
             </summary>
             <param name="idUser">The identifier user.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.RequestController.GetRequestByIdSolicitud(System.String)">
+            <summary>
+                GetRequestByIdSolicitud
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.RequestController.UpdateRequest(Backend.InhumacionCremacion.Entities.DTOs.SolicitudDTO)">
+            <summary>
+                Updates the request.
+            </summary>
+            <param name="solicitudDTO">The solicitud dto.</param>
             <returns></returns>
         </member>
         <member name="M:Backend.InhumacionCremacion.API.Controllers.RequestController.GetAllRequest">
@@ -84,173 +122,165 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Backend.InhumacionCremacion.API.Controllers.RequestController.UpdateRequest(Backend.InhumacionCremacion.Entities.DTOs.SolicitudDTO)">
-            <summary>
-            Updates the request.
-            </summary>
-            <param name="solicitudDTO">The solicitud dto.</param>
-            <returns></returns>
-        </member>
         <member name="T:Backend.InhumacionCremacion.API.Controllers.SeguimientoController">
             <summary>
-            SeguimientoController
+                SeguimientoController
             </summary>
             <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
         </member>
         <member name="F:Backend.InhumacionCremacion.API.Controllers.SeguimientoController.SeguimientoBusiness">
             <summary>
-            The request business
+                The request business
             </summary>
         </member>
         <member name="M:Backend.InhumacionCremacion.API.Controllers.SeguimientoController.#ctor(Backend.InhumacionCremacion.Entities.Interface.Business.ISeguimientoBusiness)">
             <summary>
-            SeguimientoController
+                SeguimientoController
             </summary>
             <param name="seguimientoBusiness"></param>
         </member>
         <member name="M:Backend.InhumacionCremacion.API.Controllers.SeguimientoController.AddSeguimiento(Backend.InhumacionCremacion.Entities.Models.InhumacionCremacion.Seguimiento)">
             <summary>
-            AddSeguimiento
+                AddSeguimiento
             </summary>
             <param name="seguimiento"></param>
             <returns></returns>
         </member>
         <member name="M:Backend.InhumacionCremacion.API.Controllers.SeguimientoController.GetSeguimientoBySolicitud(System.String)">
             <summary>
-            GetSeguimientoBySolicitud
+                GetSeguimientoBySolicitud
             </summary>
             <param name="idSolicitud"></param>
             <returns></returns>
         </member>
         <member name="T:Backend.InhumacionCremacion.API.Controllers.SupportDocumentsController">
             <summary>
-            SupportDocumentsController
+                SupportDocumentsController
             </summary>
             <seealso cref="T:Microsoft.AspNetCore.Mvc.ControllerBase" />
         </member>
         <member name="F:Backend.InhumacionCremacion.API.Controllers.SupportDocumentsController._supportDocumentsBusiness">
             <summary>
-            The request business
+                The request business
             </summary>
         </member>
         <member name="M:Backend.InhumacionCremacion.API.Controllers.SupportDocumentsController.#ctor(Backend.InhumacionCremacion.Entities.Interface.Business.ISupportDocumentsBusiness)">
             <summary>
-            Initializes a new instance of the <see cref="T:Backend.InhumacionCremacion.API.Controllers.SupportDocumentsController"/> class.
+                Initializes a new instance of the <see cref="T:Backend.InhumacionCremacion.API.Controllers.SupportDocumentsController" /> class.
             </summary>
             <param name="supportDocumentsBusiness">The support documents business.</param>
         </member>
         <member name="M:Backend.InhumacionCremacion.API.Controllers.SupportDocumentsController.AddSupportDocuments(System.Collections.Generic.List{Backend.InhumacionCremacion.Entities.DTOs.RequestSupportDocumentsDTO})">
             <summary>
-            Adds the support documents.
+                Adds the support documents.
             </summary>
             <param name="requestSupportDocumentsDTO">The request support documents dto.</param>
             <returns></returns>
         </member>
         <member name="M:Backend.InhumacionCremacion.API.Controllers.SupportDocumentsController.GetAllSuportByRequestId(System.String)">
             <summary>
-            Adds the support documents.
+                Adds the support documents.
             </summary>
             <param name="IdSolicitud">The identifier solicitud.</param>
             <returns></returns>
         </member>
         <member name="M:Backend.InhumacionCremacion.API.Controllers.SupportDocumentsController.UpdateSuport(System.Collections.Generic.List{Backend.InhumacionCremacion.Entities.Models.InhumacionCremacion.DocumentosSoporte})">
             <summary>
-            Updates the suport.
+                Updates the suport.
             </summary>
             <param name="documentosSoporte">The documentos soporte.</param>
             <returns></returns>
         </member>
         <member name="T:Backend.InhumacionCremacion.API.Injections.BusinessInjection">
             <summary>
-            Business Injection
+                Business Injection
             </summary>
         </member>
         <member name="M:Backend.InhumacionCremacion.API.Injections.BusinessInjection.AddBusinessConfig(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
-            Adds the business configuration.
+                Adds the business configuration.
             </summary>
             <param name="services">The services.</param>
         </member>
         <member name="T:Backend.InhumacionCremacion.API.Injections.InitialInjection">
             <summary>
-            
             </summary>
         </member>
         <member name="M:Backend.InhumacionCremacion.API.Injections.InitialInjection.AddInitialConfig(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
-            Adds the initial configuration.
+                Adds the initial configuration.
             </summary>
             <param name="services">The services.</param>
         </member>
         <member name="M:Backend.InhumacionCremacion.API.Injections.InitialInjection.UseInitialConfig(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
             <summary>
-            Uses the initial configuration.
+                Uses the initial configuration.
             </summary>
             <param name="app">The application.</param>
         </member>
         <member name="T:Backend.InhumacionCremacion.API.Injections.SwaggerInjection">
             <summary>
-            Swagger Injection
+                Swagger Injection
             </summary>
         </member>
         <member name="M:Backend.InhumacionCremacion.API.Injections.SwaggerInjection.AddSwaggerConfig(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
-            Adds the swagger configuration.
+                Adds the swagger configuration.
             </summary>
             <param name="services">The services.</param>
         </member>
         <member name="M:Backend.InhumacionCremacion.API.Injections.SwaggerInjection.UseSwaggerConfig(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
             <summary>
-            Uses the swagger configuration.
+                Uses the swagger configuration.
             </summary>
             <param name="app">The application.</param>
         </member>
         <member name="T:Backend.InhumacionCremacion.API.Program">
             <summary>
-            Program
+                Program
             </summary>
         </member>
         <member name="M:Backend.InhumacionCremacion.API.Program.Main(System.String[])">
             <summary>
-            Defines the entry point of the application.
+                Defines the entry point of the application.
             </summary>
             <param name="args">The arguments.</param>
         </member>
         <member name="M:Backend.InhumacionCremacion.API.Program.CreateHostBuilder(System.String[])">
             <summary>
-            Creates the host builder.
+                Creates the host builder.
             </summary>
             <param name="args">The arguments.</param>
             <returns></returns>
         </member>
         <member name="T:Backend.InhumacionCremacion.API.Startup">
             <summary>
-            Startup
+                Startup
             </summary>
         </member>
         <member name="M:Backend.InhumacionCremacion.API.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>
-            Initializes a new instance of the <see cref="T:Backend.InhumacionCremacion.API.Startup"/> class.
+                Initializes a new instance of the <see cref="T:Backend.InhumacionCremacion.API.Startup" /> class.
             </summary>
             <param name="configuration">The configuration.</param>
         </member>
         <member name="P:Backend.InhumacionCremacion.API.Startup.Configuration">
             <summary>
-            Gets the configuration.
+                Gets the configuration.
             </summary>
             <value>
-            The configuration.
+                The configuration.
             </value>
         </member>
         <member name="M:Backend.InhumacionCremacion.API.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
-            Configures the services.
+                Configures the services.
             </summary>
             <param name="services">The services.</param>
         </member>
         <member name="M:Backend.InhumacionCremacion.API.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
             <summary>
-            Configures the specified application.
+                Configures the specified application.
             </summary>
             <param name="app">The application.</param>
             <param name="env">The env.</param>

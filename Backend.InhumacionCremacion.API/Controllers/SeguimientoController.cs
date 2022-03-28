@@ -1,51 +1,56 @@
-﻿using Backend.InhumacionCremacion.Entities.Interface.Business;
+﻿using System.Threading.Tasks;
+using Backend.InhumacionCremacion.Entities.Interface.Business;
+using Backend.InhumacionCremacion.Entities.Models.InhumacionCremacion;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace Backend.InhumacionCremacion.API.Controllers
 {
     /// <summary>
-    /// SeguimientoController
+    ///     SeguimientoController
     /// </summary>
     /// <seealso cref="Microsoft.AspNetCore.Mvc.ControllerBase" />
     [Route("api/[controller]")]
     [ApiController]
     public class SeguimientoController : ControllerBase
     {
-        #region Attributes        
+        #region Attributes
+
         /// <summary>
-        /// The request business
+        ///     The request business
         /// </summary>
         private readonly ISeguimientoBusiness SeguimientoBusiness;
 
         #endregion
 
-        #region Cosnstructor                
+        #region Cosnstructor
+
         /// <summary>
-        /// SeguimientoController
+        ///     SeguimientoController
         /// </summary>
         /// <param name="seguimientoBusiness"></param>
         public SeguimientoController(ISeguimientoBusiness seguimientoBusiness)
         {
             SeguimientoBusiness = seguimientoBusiness;
         }
+
         #endregion
 
-        #region Methods        
+        #region Methods
+
         /// <summary>
-        /// AddSeguimiento
+        ///     AddSeguimiento
         /// </summary>
         /// <param name="seguimiento"></param>
         /// <returns></returns>
         [HttpPost("AddSeguimiento")]
-        public async Task<ActionResult> AddSeguimiento([FromBody] Entities.Models.InhumacionCremacion.Seguimiento seguimiento)
+        public async Task<ActionResult> AddSeguimiento([FromBody] Seguimiento seguimiento)
         {
             var result = await SeguimientoBusiness.AddSeguimiento(seguimiento);
             return StatusCode(result.Code, result);
         }
 
         /// <summary>
-        /// GetSeguimientoBySolicitud
+        ///     GetSeguimientoBySolicitud
         /// </summary>
         /// <param name="idSolicitud"></param>
         /// <returns></returns>
@@ -55,6 +60,7 @@ namespace Backend.InhumacionCremacion.API.Controllers
             var result = await SeguimientoBusiness.GetSeguimientoBySolicitud(idSolicitud);
             return StatusCode(result.Code, result);
         }
+
         #endregion
     }
 }
