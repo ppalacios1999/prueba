@@ -195,6 +195,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
                     CorreoSolicitante = requestDTO.Solicitud.ResumenSolicitud.CorreoSolicitante,
                     CorreoFuneraria = requestDTO.Solicitud.ResumenSolicitud.CorreoFuneraria,
                     CorreoCementerio = requestDTO.Solicitud.ResumenSolicitud.CorreoCementerio,
+                    CorreoMedico = requestDTO.Solicitud.ResumenSolicitud.CorreoMedico,
                     TipoSeguimiento = requestDTO.Solicitud.ResumenSolicitud.TipoSeguimiento,
                     NombreSolicitante = requestDTO.Solicitud.ResumenSolicitud.NombreSolicitante,
                     ApellidoSolicitante = requestDTO.Solicitud.ResumenSolicitud.ApellidoSolicitante,
@@ -540,6 +541,237 @@ namespace Backend.InhumacionCremacion.BusinessRules
                 return new ResponseBase<List<Entities.DTOs.RequestDetailDTO>>(code: System.Net.HttpStatusCode.InternalServerError, message: ex.Message);
             }
         }
+        /// <summary>
+        /// Gets the request by identifier.
+        /// </summary>
+        /// <param name="idEstado">The identifier solicitud.</param>
+        /// <returns></returns>
+        public async Task<ResponseBase<List<Entities.DTOs.SolicitudDTO>>> GetRequestByIdEstado(string idEstado)
+        {
+            try
+            {
+                var resultSolicitud = await _repositorySolicitud.GetAllAsync(
+                    predicate: p => p.EstadoSolicitud.Equals(Guid.Parse(idEstado)), include: inc => inc
+                        .Include(i => i.IdDatosCementerioNavigation)
+                        .Include(i => i.IdInstitucionCertificaFallecimientoNavigation)
+                        .Include(i => i.Persona));
+
+                var resultLugarDefuncion = await _repositoryLugarDefuncion.GetAsync(predicate: p =>
+                    p.IdLugarDefuncion.Equals(Guid.Parse(resultSolicitud.Select(x => x.IdLugarDefuncion)
+                        .FirstOrDefault().ToString())));
+
+                List<System.Guid> IdUbicacionPersona = new List<System.Guid>();
+
+                foreach (var persona in resultSolicitud)
+                {
+                    IdUbicacionPersona.AddRange(persona.Persona.Select(x => x.IdUbicacionPersona.Value));
+                }
+
+                var resultUbicacionPersona = await _repositoryUbicacionPersona.GetAsync(w =>
+                    w.IdPaisResidencia != Guid.Empty && IdUbicacionPersona.Any(a => a.Equals(w.IdUbicacionPersona)));
+
+                var resultSol = new List<Entities.DTOs.SolicitudDTO>();
+
+                foreach (var item in resultSolicitud)
+                {
+                    //solicitud validado
+                    Entities.DTOs.SolicitudDTO solicitudDTO = new Entities.DTOs.SolicitudDTO
+                    {
+                        IdSolicitud = item.IdSolicitud,
+                        FechaSolicitud = item.FechaSolicitud,
+                        EstadoSolicitud = item.EstadoSolicitud,
+                        IdTramite = item.IdTramite,
+
+
+                        Persona = new List<Entities.DTOs.PersonaDTO>(),
+
+                    };
+
+                    resultSol.Add(solicitudDTO);
+
+                    foreach (var rsp in item.Persona)
+                    {
+                        //datos persona validado
+                        Entities.DTOs.PersonaDTO personaDTO = new Entities.DTOs.PersonaDTO
+                        {
+
+                            IdPersona = rsp.IdPersona,
+                            NumeroIdentificacion = rsp.NumeroIdentificacion,
+                            PrimerNombre = rsp.PrimerNombre,
+                            SegundoNombre = rsp.SegundoNombre,
+                            PrimerApellido = rsp.PrimerApellido,
+                            SegundoApellido = rsp.SegundoApellido,
+                            Estado = rsp.Estado,
+
+                        };
+                        solicitudDTO.Persona.Add(personaDTO);
+                    }
+                }
+
+                return new ResponseBase<List<Entities.DTOs.SolicitudDTO>>(code: System.Net.HttpStatusCode.OK,
+                    message: "Solicitud OK", data: resultSol.ToList());
+            }
+            catch (Exception ex)
+            {
+                _telemetryException.RegisterException(ex);
+                return new ResponseBase<List<Entities.DTOs.SolicitudDTO>>(
+                    code: System.Net.HttpStatusCode.InternalServerError, message: ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Gets the request by identifier.
+        /// </summary>
+        /// <param name="idSolicitud">The identifier solicitud.</param>
+        /// <returns></returns>
+        public async Task<ResponseBase<List<Entities.DTOs.SolicitudDTO>>> GetRequestByIdSolicitud(string idSolicitud)
+        {
+            try
+            {
+                var resultSolicitud = await _repositorySolicitud.GetAllAsync(
+                    predicate: p => p.IdSolicitud.Equals(Guid.Parse(idSolicitud)), include: inc => inc
+                        .Include(i => i.IdDatosCementerioNavigation)
+                        .Include(i => i.IdInstitucionCertificaFallecimientoNavigation)
+                        .Include(i => i.Persona));
+
+                var resultLugarDefuncion = await _repositoryLugarDefuncion.GetAsync(predicate: p =>
+                    p.IdLugarDefuncion.Equals(Guid.Parse(resultSolicitud.Select(x => x.IdLugarDefuncion)
+                        .FirstOrDefault().ToString())));
+
+                List<System.Guid> IdUbicacionPersona = new List<System.Guid>();
+
+                foreach (var persona in resultSolicitud)
+                {
+                    IdUbicacionPersona.AddRange(persona.Persona.Select(x => x.IdUbicacionPersona.Value));
+                }
+
+                var resultUbicacionPersona = await _repositoryUbicacionPersona.GetAsync(w =>
+                    w.IdPaisResidencia != Guid.Empty && IdUbicacionPersona.Any(a => a.Equals(w.IdUbicacionPersona)));
+
+                var resultSol = new List<Entities.DTOs.SolicitudDTO>();
+
+                foreach (var item in resultSolicitud)
+                {
+                    //solicitud validado
+                    Entities.DTOs.SolicitudDTO solicitudDTO = new Entities.DTOs.SolicitudDTO
+                    {
+                        IdSolicitud = item.IdSolicitud,
+                        NumeroCertificado = item.NumeroCertificado,
+                        FechaDefuncion = item.FechaDefuncion,
+                        SinEstablecer = item.SinEstablecer,
+                        Hora = item.Hora,
+                        IdSexo = item.IdSexo,
+                        FechaSolicitud = item.FechaSolicitud,
+                        EstadoSolicitud = item.EstadoSolicitud,
+                        IdPersonaVentanilla = item.IdPersonaVentanilla,
+                        IdUsuarioSeguridad = item.IdUsuarioSeguridad,
+                        IdTramite = item.IdTramite,
+                        IdTipoMuerte = item.IdTipoMuerte,
+
+                        //ubicacion persona validado
+                        UbicacionPersona = new Entities.DTOs.UbicacionPersonaDTO
+                        {
+                            IdUbicacionPersona = resultUbicacionPersona?.IdUbicacionPersona,
+                            IdPaisResidencia = resultUbicacionPersona?.IdPaisResidencia,
+                            IdDepartamentoResidencia = resultUbicacionPersona?.IdDepartamentoResidencia,
+                            IdCiudadResidencia = resultUbicacionPersona?.IdCiudadResidencia,
+                            IdLocalidadResidencia = resultUbicacionPersona?.IdLocalidadResidencia,
+                            IdAreaResidencia = resultUbicacionPersona?.IdAreaResidencia,
+                            IdBarrioResidencia = resultUbicacionPersona?.IdBarrioResidencia
+                        },
+
+                        Persona = new List<Entities.DTOs.PersonaDTO>(),
+
+                        //datos cementerio validado
+                        DatosCementerio = new Entities.DTOs.DatosCementerioDTO
+                        {
+                            IdDatosCementerio = item.IdDatosCementerio,
+                            EnBogota = item.IdDatosCementerioNavigation.EnBogota,
+                            FueraBogota = item.IdDatosCementerioNavigation.FueraBogota,
+                            FueraPais = item.IdDatosCementerioNavigation.FueraPais,
+                            Cementerio = item.IdDatosCementerioNavigation.Cementerio,
+                            OtroSitio = item.IdDatosCementerioNavigation.OtroSitio,
+                            Ciudad = item.IdDatosCementerioNavigation.Ciudad,
+                            IdPais = item.IdDatosCementerioNavigation.IdPais,
+                            IdDepartamento = item.IdDatosCementerioNavigation.IdDepartamento,
+                            IdMunicipio = item.IdDatosCementerioNavigation.IdMunicipio
+                        },
+                        //lufar de defuncion validado
+                        LugarDefuncion = new Entities.DTOs.LugarDefuncionDTO
+                        {
+                            IdLugarDefuncion = resultLugarDefuncion.IdLugarDefuncion,
+                            IdPais = resultLugarDefuncion.IdPais,
+                            IdDepartamento = resultLugarDefuncion.IdDepartamento,
+                            IdMunicipio = resultLugarDefuncion.IdMunicipio,
+                            IdAreaDefuncion = resultLugarDefuncion.IdAreaDefuncion,
+                            IdSitioDefuncion = resultLugarDefuncion.IdSitioDefuncion
+                        },
+
+                        //datos intitucion certifica fallecimiento ok
+                        InstitucionCertificaFallecimiento = new Entities.DTOs.InstitucionCertificaFallecimientoDTO
+                        {
+                            IdInstitucionCertificaFallecimiento = item.IdInstitucionCertificaFallecimiento,
+                            TipoIdentificacion = item.IdInstitucionCertificaFallecimientoNavigation.TipoIdentificacion,
+                            NumeroIdentificacion =
+                                item.IdInstitucionCertificaFallecimientoNavigation.NumeroIdentificacion,
+                            RazonSocial = item.IdInstitucionCertificaFallecimientoNavigation.RazonSocial,
+                            NumeroProtocolo = item.IdInstitucionCertificaFallecimientoNavigation.NumeroProtocolo,
+                            NumeroActaLevantamiento = item.IdInstitucionCertificaFallecimientoNavigation
+                                .NumeroActaLevantamiento,
+                            FechaActa = item.IdInstitucionCertificaFallecimientoNavigation.FechaActa,
+                            SeccionalFiscalia = item.IdInstitucionCertificaFallecimientoNavigation.SeccionalFiscalia,
+                            NoFiscal = item.IdInstitucionCertificaFallecimientoNavigation.NoFiscal,
+                            IdTipoInstitucion = item.IdInstitucionCertificaFallecimientoNavigation.IdTipoInstitucion
+                        }
+                    };
+
+                    resultSol.Add(solicitudDTO);
+
+                    foreach (var rsp in item.Persona)
+                    {
+                        //datos persona validado
+                        Entities.DTOs.PersonaDTO personaDTO = new Entities.DTOs.PersonaDTO
+                        {
+
+                            IdPersona = rsp.IdPersona,
+                            TipoIdentificacion = rsp.TipoIdentificacion,
+                            NumeroIdentificacion = rsp.NumeroIdentificacion,
+                            PrimerNombre = rsp.PrimerNombre,
+                            SegundoNombre = rsp.SegundoNombre,
+                            PrimerApellido = rsp.PrimerApellido,
+                            SegundoApellido = rsp.SegundoApellido,
+                            FechaNacimiento = rsp.FechaNacimiento,
+                            Nacionalidad = rsp.Nacionalidad,
+                            OtroParentesco = rsp.OtroParentesco,
+                            Estado = rsp.Estado,
+                            IdEstadoCivil = rsp.IdEstadoCivil,
+                            IdNivelEducativo = rsp.IdNivelEducativo,
+                            IdEtnia = rsp.IdEtnia,
+                            IdRegimen = rsp.IdRegimen,
+                            IdTipoPersona = rsp.IdTipoPersona,
+                            IdSolicitud = rsp.IdSolicitud,
+                            IdParentesco = rsp.IdParentesco,
+                            IdLugarExpedicion = rsp.IdLugarExpedicion,
+                            IdTipoProfesional = rsp.IdTipoProfesional,
+                            IdUbicacionPersona = rsp.IdUbicacionPersona
+                        };
+                        solicitudDTO.Persona.Add(personaDTO);
+                    }
+                }
+
+                return new ResponseBase<List<Entities.DTOs.SolicitudDTO>>(code: System.Net.HttpStatusCode.OK,
+                    message: "Solicitud OK", data: resultSol.ToList());
+            }
+            catch (Exception ex)
+            {
+                _telemetryException.RegisterException(ex);
+                return new ResponseBase<List<Entities.DTOs.SolicitudDTO>>(
+                    code: System.Net.HttpStatusCode.InternalServerError, message: ex.Message);
+            }
+
+        }
+
+
         #endregion
     }
 }

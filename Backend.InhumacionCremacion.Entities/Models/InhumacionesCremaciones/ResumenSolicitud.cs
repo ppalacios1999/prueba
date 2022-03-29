@@ -19,6 +19,7 @@ namespace Backend.InhumacionCremacion.Entities.Models.InhumacionCremacion
         public string CorreoFuneraria { get; set; }
 
         public string CorreoCementerio { get; set; }
+        public string CorreoMedico { get; set; }
         
         public string TipoSeguimiento { get; set; }
         public string NombreSolicitante { get; set; }
