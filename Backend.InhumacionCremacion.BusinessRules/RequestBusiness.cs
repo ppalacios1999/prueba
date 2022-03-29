@@ -123,6 +123,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
                     IdPais = requestDTO.Solicitud.DatosCementerio.IdPais,
                     IdDepartamento = requestDTO.Solicitud.DatosCementerio.IdDepartamento,
                     IdMunicipio = requestDTO.Solicitud.DatosCementerio.IdMunicipio
+
                 });
 
                 //institucion que certifica el fallecemiento
@@ -328,7 +329,8 @@ namespace Backend.InhumacionCremacion.BusinessRules
                 var resultSolicitud = await _repositorySolicitud.GetAllAsync(predicate: p => p.IdSolicitud.Equals(Guid.Parse(idSolicitud)), include: inc => inc
                                                                                                                                    .Include(i => i.IdDatosCementerioNavigation)
                                                                                                                                    .Include(i => i.IdInstitucionCertificaFallecimientoNavigation)
-                                                                                                                                   .Include(i => i.Persona));
+                                                                                                                                   .Include(i => i.Persona)
+                                                                                                                                   );
 
                 var resultLugarDefuncion = await _repositoryLugarDefuncion.GetAsync(predicate: p => p.IdLugarDefuncion.Equals(Guid.Parse(resultSolicitud.Select(x => x.IdLugarDefuncion).FirstOrDefault().ToString())));
 
