@@ -29,7 +29,7 @@ namespace Backend.InhumacionCremacion.Entities.Models.InhumacionCremacion
         //public Guid IdUbicacionPersona { get; set; }
 
         public virtual DatosCementerio IdDatosCementerioNavigation { get; set; }
-        public virtual InstitucionCertificaFallecimiento IdInstitucionCertificaFallecimientoNavigation { get; set;
+        public virtual InstitucionCertificaFallecimiento IdInstitucionCertificaFallecimientoNavigation { get; set; }
 
 
         public virtual ICollection<Persona> Persona { get; set; }

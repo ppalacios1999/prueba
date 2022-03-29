@@ -2,6 +2,7 @@
 using Backend.InhumacionCremacion.Entities.Responses;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Backend.InhumacionCremacion.Entities.Models.InhumacionCremacion;
 
 namespace Backend.InhumacionCremacion.Entities.Interface.Business
 {
@@ -61,6 +62,12 @@ namespace Backend.InhumacionCremacion.Entities.Interface.Business
         /// </summary>
         /// <returns></returns>
         Task<ResponseBase<List<DTOs.RequestDetailDTO>>> GetAllRequest();
+        
+        /// <summary>
+        /// GetResumenSolicitud
+        /// </summary>
+        /// <returns></returns>
+        Task<ResponseBase<List<ResumenSolicitud>>> GetResumenSolicitud(string idSolicitud);
         
 
         
