@@ -386,6 +386,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
                 }
 
                 var resultUbicacionPersona = await _repositoryUbicacionPersona.GetAsync(w => w.IdPaisResidencia != Guid.Empty && IdUbicacionPersona.Any(a => a.Equals(w.IdUbicacionPersona)));
+               
 
                 var resultSol = new List<Entities.DTOs.SolicitudDTO>();
 
@@ -459,7 +460,10 @@ namespace Backend.InhumacionCremacion.BusinessRules
                             SeccionalFiscalia = item.IdInstitucionCertificaFallecimientoNavigation.SeccionalFiscalia,
                             NoFiscal = item.IdInstitucionCertificaFallecimientoNavigation.NoFiscal,
                             IdTipoInstitucion = item.IdInstitucionCertificaFallecimientoNavigation.IdTipoInstitucion
-                        }
+                        },
+
+
+                        
                     };
 
                     resultSol.Add(solicitudDTO);
@@ -686,6 +690,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
                 var resultLugarDefuncion = await _repositoryLugarDefuncion.GetAsync(predicate: p =>
                     p.IdLugarDefuncion.Equals(Guid.Parse(resultSolicitud.Select(x => x.IdLugarDefuncion)
                         .FirstOrDefault().ToString())));
+               
 
                 List<System.Guid> IdUbicacionPersona = new List<System.Guid>();
 
@@ -771,7 +776,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
                             SeccionalFiscalia = item.IdInstitucionCertificaFallecimientoNavigation.SeccionalFiscalia,
                             NoFiscal = item.IdInstitucionCertificaFallecimientoNavigation.NoFiscal,
                             IdTipoInstitucion = item.IdInstitucionCertificaFallecimientoNavigation.IdTipoInstitucion
-                        }
+                        }                       
                     };
 
                     resultSol.Add(solicitudDTO);
@@ -830,7 +835,11 @@ namespace Backend.InhumacionCremacion.BusinessRules
                 {
                     return new Entities.Responses.ResponseBase<List<ResumenSolicitud>>(code: HttpStatusCode.OK, message: "No se encontraron registros");
                 }
-                return new Entities.Responses.ResponseBase<List<ResumenSolicitud>>(code: HttpStatusCode.OK, message: Middle.Messages.GetOk, data: result.ToList(), count: result.Count());
+                else
+                {
+                    return new Entities.Responses.ResponseBase<List<ResumenSolicitud>>(code: HttpStatusCode.OK, message: Middle.Messages.GetOk, data: result.ToList(), count: result.Count());
+                }
+                
             }
             catch (Exception ex)
             {

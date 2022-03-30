@@ -148,7 +148,7 @@ namespace Backend.InhumacionCremacion.API.Controllers
         /// GetAllRequest
         /// </summary>
         /// <returns></returns>
-        [HttpGet("GetResumenSolicitud")]
+        [HttpGet("GetResumenSolicitud/{idSolicitud}")]
         public async Task<ActionResult> GetResumenSolicitud(string idSolicitud)
         {
             var result = await RequestBusiness.GetResumenSolicitud(idSolicitud);
