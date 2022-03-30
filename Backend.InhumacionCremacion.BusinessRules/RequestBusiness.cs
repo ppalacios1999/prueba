@@ -4,7 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using Backend.InhumacionCremacion.Entities.Models.InhumacionCremacion;
 
 namespace Backend.InhumacionCremacion.BusinessRules
 {
@@ -585,6 +587,9 @@ namespace Backend.InhumacionCremacion.BusinessRules
                 return new ResponseBase<List<Entities.DTOs.RequestDetailDTO>>(code: System.Net.HttpStatusCode.InternalServerError, message: ex.Message);
             }
         }
+
+       
+
         /// <summary>
         /// Gets the request by identifier.
         /// </summary>
@@ -815,6 +820,26 @@ namespace Backend.InhumacionCremacion.BusinessRules
 
         }
 
+        public async Task<ResponseBase<List<ResumenSolicitud>>> GetResumenSolicitud(string idSolicitud)
+        {
+            try
+            {
+                var result = await _repositoryResumenSolicitud.GetAllAsync(predicate: p => p.IdSolicitud.Equals(Guid.Parse(idSolicitud)));
+
+                if (result == null)
+                {
+                    return new Entities.Responses.ResponseBase<List<ResumenSolicitud>>(code: HttpStatusCode.OK, message: "No se encontraron registros");
+                }
+                return new Entities.Responses.ResponseBase<List<ResumenSolicitud>>(code: HttpStatusCode.OK, message: Middle.Messages.GetOk, data: result.ToList(), count: result.Count());
+            }
+            catch (Exception ex)
+            {
+                _telemetryException.RegisterException(ex);
+                return new Entities.Responses.ResponseBase<List<ResumenSolicitud>>(code: HttpStatusCode.InternalServerError, message: Middle.Messages.ServerError);
+            }
+
+        }
+        
 
         #endregion
     }

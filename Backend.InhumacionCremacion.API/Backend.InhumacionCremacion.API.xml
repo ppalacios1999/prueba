@@ -123,6 +123,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.RequestController.GetResumenSolicitud(System.String)">
+            <summary>
+            GetAllRequest
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Backend.InhumacionCremacion.API.Controllers.SeguimientoController">
             <summary>
                 SeguimientoController
