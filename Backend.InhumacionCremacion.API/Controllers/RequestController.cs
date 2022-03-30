@@ -2,6 +2,7 @@
 using Backend.InhumacionCremacion.BusinessRules;
 using Backend.InhumacionCremacion.Entities.DTOs;
 using Backend.InhumacionCremacion.Entities.Interface.Business;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.InhumacionCremacion.API.Controllers
@@ -41,7 +42,7 @@ namespace Backend.InhumacionCremacion.API.Controllers
         ///     The update request business
         /// </summary>
         private readonly IUpdateRequestBusiness UpdateRequestBusiness;
-        
+
 
         #endregion
 
@@ -52,6 +53,15 @@ namespace Backend.InhumacionCremacion.API.Controllers
         /// </summary>
         /// <param name="requestDTO">The request dto.</param>
         /// <returns></returns>
+        /// 
+
+        [HttpPost("AddGestion")]
+        public async Task<ActionResult> AddGestion([FromBody] RequestGestionDTO requestGestionDTO)
+        {
+            var result = await RequestBusiness.AddGestion(requestGestionDTO);
+            return StatusCode(result.Code, result);
+        }
+
         [HttpPost("AddRquest")]
         public async Task<ActionResult> AddRquest([FromBody] RequestDTO requestDTO)
         {

@@ -10,6 +10,12 @@ namespace Backend.InhumacionCremacion.Entities.Interface.Business
         /// <summary>
         /// Adds the request.
         /// </summary>
+        /// <param name="requestGestionDTO">The request dto.</param>
+        /// <returns></returns>
+        Task<ResponseBase<string>> AddGestion(DTOs.RequestGestionDTO requestGestionDTO);
+        /// <summary>
+        /// Adds the request.
+        /// </summary>
         /// <param name="requestDTO">The request dto.</param>
         /// <returns></returns>
         Task<ResponseBase<string>> AddRequest(DTOs.RequestDTO requestDTO);

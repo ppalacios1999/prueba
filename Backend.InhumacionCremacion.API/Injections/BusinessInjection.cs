@@ -21,6 +21,7 @@ namespace Backend.InhumacionCremacion.API.Injections
             services.AddTransient<IUpdateRequestBusiness, UpdateRequestBusiness>();
             services.AddTransient<ISeguimientoBusiness, SeguimientoBusiness>();
             services.AddTransient<IFormatoBusiness, FormatoBusiness>();
+           
         }
     }
 }

@@ -20,7 +20,6 @@ namespace Backend.InhumacionCremacion.Entities.DTOs
 
         public string CorreoCementerio { get; set; }
         public string CorreoMedico { get; set; }
-
         public string TipoSeguimiento { get; set; }
         public string NombreSolicitante { get; set; }
         public string ApellidoSolicitante { get; set; }

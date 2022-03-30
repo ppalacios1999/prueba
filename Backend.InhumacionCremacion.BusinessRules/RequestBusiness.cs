@@ -51,11 +51,18 @@ namespace Backend.InhumacionCremacion.BusinessRules
         /// </summary>
         private readonly Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.Solicitud> _repositorySolicitud;
 
+        
+
         /// <summary>
         /// _repositoryDominio
         /// </summary>
         private readonly Entities.Interface.Repository.IBaseRepositoryCommons<Entities.Models.Commons.Dominio> _repositoryDominio;
 
+
+        /// <summary>
+        /// The repository Resumen Solicitud
+        /// </summary>
+        private readonly Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.EstadoDocumentosSoporte> _repositoryEstadoDocumentosSoporte;
 
 
         /// <summary>
@@ -85,7 +92,8 @@ namespace Backend.InhumacionCremacion.BusinessRules
                                Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.LugarDefuncion> repositoryLugarDefuncion,
                                Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.Persona> repositoryPersona,
                                Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.UbicacionPersona> repositoryUbicacionPersona,
-                               Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.ResumenSolicitud> repositoryResumenSolicitud
+                               Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.ResumenSolicitud> repositoryResumenSolicitud,
+                               Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.EstadoDocumentosSoporte> repositoryEstadoDocumentosSoporte
             )
         {
             _telemetryException = telemetryException;
@@ -97,6 +105,8 @@ namespace Backend.InhumacionCremacion.BusinessRules
             _repositoryUbicacionPersona = repositoryUbicacionPersona;
             _repositoryDominio = repositoryDominio;
             _repositoryResumenSolicitud = repositoryResumenSolicitud;
+            _repositoryEstadoDocumentosSoporte = repositoryEstadoDocumentosSoporte;
+            
         }
         #endregion
 
@@ -106,6 +116,38 @@ namespace Backend.InhumacionCremacion.BusinessRules
         /// </summary>
         /// <param name="requestDTO">The request dto.</param>
         /// <returns></returns>
+        /// 
+
+        public async Task<ResponseBase<string>> AddGestion(Entities.DTOs.RequestGestionDTO requestGestionDTO)
+        {
+            try
+            {
+                
+                    Guid IdEstadoDocumento = Guid.NewGuid();
+                    await _repositoryEstadoDocumentosSoporte.AddAsync(new Entities.Models.InhumacionCremacion.EstadoDocumentosSoporte
+                    {
+                        IdEstadoDocumento = IdEstadoDocumento,
+                        IdSolicitud = requestGestionDTO.estado.IdSolicitud,
+                        IdDocumentoSoporte = requestGestionDTO.estado.IdDocumentoSoporte,
+                        Path = requestGestionDTO.estado.Path,
+                        Observaciones = requestGestionDTO.estado.Observaciones,
+                        Estado_Documento = requestGestionDTO.estado.Estado_Documento
+
+                    });
+                    
+                
+                return new ResponseBase<string>(code: System.Net.HttpStatusCode.OK, message: "Solicitud OK");
+
+
+            }
+            catch (Exception ex)
+            {
+                _telemetryException.RegisterException(ex);
+                return new ResponseBase<string>(code: System.Net.HttpStatusCode.InternalServerError, message: ex.Message);
+            }
+        }
+
+
         public async Task<ResponseBase<string>> AddRequest(Entities.DTOs.RequestDTO requestDTO)
         {
             try

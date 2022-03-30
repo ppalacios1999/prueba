@@ -75,12 +75,13 @@
                 The update request business
             </summary>
         </member>
-        <member name="M:Backend.InhumacionCremacion.API.Controllers.RequestController.AddRquest(Backend.InhumacionCremacion.Entities.DTOs.RequestDTO)">
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.RequestController.AddGestion(Backend.InhumacionCremacion.Entities.DTOs.RequestGestionDTO)">
             <summary>
                 Adds the rquest.
             </summary>
             <param name="requestDTO">The request dto.</param>
             <returns></returns>
+            
         </member>
         <member name="M:Backend.InhumacionCremacion.API.Controllers.RequestController.GetRequestByIdUser(System.String)">
             <summary>
