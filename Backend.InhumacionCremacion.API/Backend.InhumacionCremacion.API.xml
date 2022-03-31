@@ -52,6 +52,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.GeneratePDFController.VisualizarPDF(System.String)">
+            <summary>
+            Visualizar the PDF.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Backend.InhumacionCremacion.API.Controllers.RequestController">
             <summary>
                 RequestController
@@ -121,6 +127,21 @@
             <summary>
             GetAllRequest
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.RequestController.MaxNumInhLicencias">
+            <summary>
+            Get Maximo Num. Inh-Licencias
+            </summary>
+            <param name="requestDTO">The request dto.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Backend.InhumacionCremacion.API.Controllers.RequestController.GetDataFromInhumacionQuery(System.String,System.String)">
+            <summary>
+            Execute a Query into SQL Database
+            </summary>
+            <param name="idSolicitud">The request dto.</param>
+            <param name="idTipoPersona">The request dto.</param>
             <returns></returns>
         </member>
         <member name="T:Backend.InhumacionCremacion.API.Controllers.SeguimientoController">
