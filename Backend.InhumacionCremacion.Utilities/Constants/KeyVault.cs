@@ -49,5 +49,10 @@
         /// The authority
         /// </summary>
         public const string Authority = "Authority";
+
+        /// <summary>
+        /// The oracle connection
+        /// </summary>
+        public const string ORACLEConnection = "ORACLEConnection";
     }
 }

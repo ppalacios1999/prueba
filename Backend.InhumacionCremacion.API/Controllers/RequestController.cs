@@ -154,7 +154,31 @@ namespace Backend.InhumacionCremacion.API.Controllers
             var result = await RequestBusiness.GetResumenSolicitud(idSolicitud);
             return StatusCode(result.Code, result);
         }
-        
+
+        /// <summary>
+        /// Get Maximo Num. Inh-Licencias
+        /// </summary>
+        /// <param name="requestDTO">The request dto.</param>
+        /// <returns></returns>
+        [HttpGet("GetMaxNumInhLicencias")]
+        public async Task<ActionResult> MaxNumInhLicencias()
+        {
+            var result = await RequestBusiness.GetMaxNumInhLicencias();
+            return StatusCode(result.Code, result);
+        }
+
+        /// <summary>
+        /// Execute a Query into SQL Database
+        /// </summary>
+        /// <param name="idSolicitud">The request dto.</param>
+        /// <param name="idTipoPersona">The request dto.</param>
+        /// <returns></returns>
+        [HttpGet("GetDataFromQuery")]
+        public async Task<ActionResult> GetDataFromInhumacionQuery(string idSolicitud, string idTipoPersona)
+        {
+            var result = await RequestBusiness.GetDataFromInhumacionQuery(idSolicitud,idTipoPersona);
+            return StatusCode(result.Code, result);
+        }
 
         #endregion
     }

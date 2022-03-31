@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Backend.InhumacionCremacion.Entities.Models.InhumacionCremacion;
+using System.Linq.Expressions;
 
 namespace Backend.InhumacionCremacion.BusinessRules
 {
@@ -71,11 +72,15 @@ namespace Backend.InhumacionCremacion.BusinessRules
         /// </summary>
         private readonly Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.EstadoDocumentosSoporte> _repositoryEstadoDocumentosSoporte;
 
-
-        /// <summary>
+      /// <summary>
         /// The repository Resumen Solicitud
         /// </summary>
         private readonly Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.ResumenSolicitud> _repositoryResumenSolicitud;
+       /// <summary>
+        /// The oracle context
+        /// </summary>
+        private readonly Repositories.Context.OracleContext OracleContext;
+
 
         #endregion
 
@@ -91,6 +96,8 @@ namespace Backend.InhumacionCremacion.BusinessRules
         /// <param name="repositoryLugarDefuncion"></param>
         /// <param name="repositoryPersona"></param>
         /// <param name="repositoryUbicacionPersona"></param>
+        /// <param name="oracleContext"></param>
+        /// <param name="inhumacionCremacionContext"></param>
         public RequestBusiness(ITelemetryException telemetryException,
                                Entities.Interface.Repository.IBaseRepositoryCommons<Entities.Models.Commons.Dominio> repositoryDominio,
                                Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.Solicitud> repositorySolicitud,
@@ -101,7 +108,8 @@ namespace Backend.InhumacionCremacion.BusinessRules
                                Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.Persona> repositoryPersona,
                                Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.UbicacionPersona> repositoryUbicacionPersona,
                                Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.ResumenSolicitud> repositoryResumenSolicitud,
-                               Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.EstadoDocumentosSoporte> repositoryEstadoDocumentosSoporte
+                               Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.EstadoDocumentosSoporte> repositoryEstadoDocumentosSoporte,
+							   Repositories.Context.OracleContext oracleContext
             )
         {
             _telemetryException = telemetryException;
@@ -115,11 +123,12 @@ namespace Backend.InhumacionCremacion.BusinessRules
             _repositoryDominio = repositoryDominio;
             _repositoryResumenSolicitud = repositoryResumenSolicitud;
             _repositoryEstadoDocumentosSoporte = repositoryEstadoDocumentosSoporte;
+			 OracleContext = oracleContext;
             
         }
         #endregion
 
-        #region Methods
+        #region Methods InhumacionCremacion
         /// <summary>
         /// Adds the request.
         /// </summary>
@@ -870,8 +879,93 @@ namespace Backend.InhumacionCremacion.BusinessRules
             }
 
         }
-        
 
+        /// <summary>
+        /// Gets Data from InhumacionCremacion.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ResponseBase<dynamic>> GetDataFromInhumacionQuery(string idSolicitud,string idTipoPersona)
+        {
+            try
+            {
+                // var result = await inhumacionContext.ExecuteQuery<dynamic>("select p.PrimerNombre, p.SegundoNombre, p.PrimerApellido, p.SegundoApellido, p.NumeroIdentificacion,  i.IdInstitucionCertificaFallecimiento, i.RazonSocial, s.NumeroCertificado, c.Cementerio from inhumacioncremacion.Persona as p inner join inhumacioncremacion.Solicitud s on p.IdSolicitud = s.IdSolicitud inner join inhumacioncremacion.DatosCementerio c on s.IdDatosCementerio = c.IdDatosCementerio inner join inhumacioncremacion.InstitucionCertificaFallecimiento i on s.IdInstitucionCertificaFallecimiento = i.IdInstitucionCertificaFallecimiento where s.IdSolicitud = 'B9170E67-4FE4-4942-BB27-3F82B55C9DF1' and p.IdTipoPersona = '01F64F02-373B-49D4-8CB1-CB677F74292C'");
+                var result = await _repositoryPersona.GetAsync(predicate: p => p.IdSolicitud.Equals(Guid.Parse(idSolicitud)), include: inc =>
+                 inc.Include(i => i.IdSolicitudNavigation.IdInstitucionCertificaFallecimientoNavigation)
+                 //.Include(i=>i.IdSolicitudNavigation.IdInstitucionCertificaFallecimientoNavigation.RazonSocial)
+                 .Include(i => i.IdSolicitudNavigation),orderBy: null,
+                 selector: sel => new Entities.Models.InhumacionCremacion.Persona {
+                     PrimerNombre = sel.PrimerNombre,
+                     SegundoNombre = sel.SegundoNombre,
+                     PrimerApellido = sel.PrimerApellido,
+                     SegundoApellido = sel.SegundoApellido,
+                     NumeroIdentificacion = sel.NumeroIdentificacion,
+                     IdSolicitudNavigation = new Solicitud {NumeroCertificado = sel.IdSolicitudNavigation.NumeroCertificado,
+                        IdTipoMuerte = sel.IdSolicitudNavigation.IdTipoMuerte
+                     ,                        
+                        IdDatosCementerioNavigation = new DatosCementerio { Cementerio = sel.IdSolicitudNavigation.IdDatosCementerioNavigation.Cementerio},
+                        IdInstitucionCertificaFallecimientoNavigation = new InstitucionCertificaFallecimiento { RazonSocial = sel.IdSolicitudNavigation.IdInstitucionCertificaFallecimientoNavigation.RazonSocial ,
+                            IdInstitucionCertificaFallecimiento = sel.IdSolicitudNavigation.IdInstitucionCertificaFallecimiento
+                            }
+                        
+                     }
+                
+                 });
+                //.Include(i => i.IdSolicitudNavigation.IdDatosCementerioNavigation.Cementerio));
+
+                var tipoMuerte = await _repositoryDominio.GetAsync(predicate: p => p.Id.Equals(result.IdSolicitudNavigation.IdTipoMuerte),selector: sel => new Entities.Models.Commons.Dominio { Descripcion = sel.Descripcion});
+
+                result.TipoMuerte = tipoMuerte.Descripcion;
+                //Console.Write(result.First());
+                var variable1 = " ";
+                if (result == null)
+                {
+                    return new Entities.Responses.ResponseBase<dynamic>(code: HttpStatusCode.OK, message: "Datos no encontrados");
+                }
+                else
+                {
+                    return new Entities.Responses.ResponseBase<dynamic>(HttpStatusCode.OK, Middle.Messages.GetOk, result);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _telemetryException.RegisterException(ex);
+                return new Entities.Responses.ResponseBase<dynamic>(code: HttpStatusCode.InternalServerError, message: Middle.Messages.ServerError);
+            }
+        }
+
+        #endregion
+
+        #region Methods in Oracle
+        /// <summary>
+        /// Gets MaxNumInhLicencias.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ResponseBase<dynamic>> GetMaxNumInhLicencias()
+        {
+            try
+            {
+                var result = await OracleContext.ExecuteQuery<dynamic>("SELECT MAX(INH_NUM_LICENCIA) +1 from V_MUERTOS WHERE  INH_FEC_LICENCIA > TIMESTAMP '2022-01-01 00:00:00.000000'");
+
+
+                Console.Write(result.First());
+                var variable1 = " ";
+                if (result == null)
+                {
+                    return new Entities.Responses.ResponseBase<dynamic>(code: HttpStatusCode.OK, message: "Datos no encontrados");
+                }
+                else
+                {
+                    return new Entities.Responses.ResponseBase<dynamic>(HttpStatusCode.OK, Middle.Messages.GetOk, result.FirstOrDefault());
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _telemetryException.RegisterException(ex);
+                return new Entities.Responses.ResponseBase<dynamic>(code: HttpStatusCode.InternalServerError, message: Middle.Messages.ServerError);
+            }
+        }
         #endregion
     }
 }
