@@ -44,6 +44,11 @@ namespace Backend.InhumacionCremacion.BusinessRules
         private readonly Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.DatosCementerio> _repositoryDatosCementerio;
 
         /// <summary>
+        /// The repository datos cementerio
+        /// </summary>
+        private readonly Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.DatosFuneraria> _repositoryDatosFuneraria;
+
+        /// <summary>
         /// The repository institucion certifica fallecimiento
         /// </summary>
         private readonly Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.InstitucionCertificaFallecimiento> _repositoryInstitucionCertificaFallecimiento;
@@ -92,6 +97,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
                                Entities.Interface.Repository.IBaseRepositoryCommons<Entities.Models.Commons.Dominio> repositoryDominio,
                                Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.Solicitud> repositorySolicitud,
                                Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.DatosCementerio> repositoryDatosCementerio,
+                               Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.DatosFuneraria> repositoryDatosFuneraria,
                                Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.InstitucionCertificaFallecimiento> repositoryInstitucionCertificaFallecimiento,
                                Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.LugarDefuncion> repositoryLugarDefuncion,
                                Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.Persona> repositoryPersona,
@@ -104,6 +110,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
             _telemetryException = telemetryException;
             _repositorySolicitud = repositorySolicitud;
             _repositoryDatosCementerio = repositoryDatosCementerio;
+            _repositoryDatosFuneraria = repositoryDatosFuneraria;
             _repositoryInstitucionCertificaFallecimiento = repositoryInstitucionCertificaFallecimiento;
             _repositoryLugarDefuncion = repositoryLugarDefuncion;
             _repositoryPersona = repositoryPersona;
@@ -132,7 +139,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
                     Guid IdEstadoDocumento = Guid.NewGuid();
                     await _repositoryEstadoDocumentosSoporte.AddAsync(new Entities.Models.InhumacionCremacion.EstadoDocumentosSoporte
                     {
-                        IdEstadoDocumento = IdEstadoDocumento,
+                        IdEstadoDocumento = IdEstadoDocumento,                        
                         IdSolicitud = requestGestionDTO.estado.IdSolicitud,
                         IdDocumentoSoporte = requestGestionDTO.estado.IdDocumentoSoporte,
                         Path = requestGestionDTO.estado.Path,
@@ -158,6 +165,21 @@ namespace Backend.InhumacionCremacion.BusinessRules
         {
             try
             {
+                //datos funeraria
+                Guid IdDatosFuneraria = Guid.NewGuid();
+                await _repositoryDatosFuneraria.AddAsync(new Entities.Models.InhumacionCremacion.DatosFuneraria
+                {
+                    IdDatosFuneraria = IdDatosFuneraria,
+                    EnBogota = requestDTO.Solicitud.DatosFuneraria.EnBogota,
+                    FueraBogota = requestDTO.Solicitud.DatosFuneraria.FueraBogota,
+                    Funeraria = requestDTO.Solicitud.DatosFuneraria.Funeraria,
+                    OtroSitio = requestDTO.Solicitud.DatosFuneraria.OtroSitio,
+                    Ciudad = requestDTO.Solicitud.DatosFuneraria.Ciudad,
+                    IdPais = requestDTO.Solicitud.DatosFuneraria.IdPais,
+                    IdDepartamento = requestDTO.Solicitud.DatosFuneraria.IdDepartamento,
+                    IdMunicipio = requestDTO.Solicitud.DatosFuneraria.IdMunicipio
+
+                });
                 //datos cementerio
                 Guid IdDatosCementerio = Guid.NewGuid();
                 await _repositoryDatosCementerio.AddAsync(new Entities.Models.InhumacionCremacion.DatosCementerio
