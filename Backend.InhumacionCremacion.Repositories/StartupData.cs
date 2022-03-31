@@ -43,6 +43,7 @@ namespace Backend.InhumacionCremacion
             });
             services.AddScoped(typeof(Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<>), typeof(Repositories.Base.BaseRepositoryInhumacionCremacion<>));
             services.AddScoped(typeof(Entities.Interface.Repository.IBaseRepositoryCommons<>), typeof(Repositories.Base.BaseRepositoryCommons<>));
+            services.AddSingleton<Repositories.Context.OracleContext>();
         }
     }
 }

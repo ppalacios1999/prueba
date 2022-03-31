@@ -154,7 +154,18 @@ namespace Backend.InhumacionCremacion.API.Controllers
             var result = await RequestBusiness.GetResumenSolicitud(idSolicitud);
             return StatusCode(result.Code, result);
         }
-        
+
+        /// <summary>
+        /// Get Maximo Num. Inh-Licencias
+        /// </summary>
+        /// <param name="requestDTO">The request dto.</param>
+        /// <returns></returns>
+        [HttpGet("GetMaxNumInhLicencias")]
+        public async Task<ActionResult> MaxNumInhLicencias()
+        {
+            var result = await RequestBusiness.GetMaxNumInhLicencias();
+            return StatusCode(result.Code, result);
+        }
 
         #endregion
     }

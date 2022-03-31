@@ -37,5 +37,28 @@ namespace Backend.InhumacionCremacion.API.Controllers
 
             return new FileStreamResult(result.Data, "application/pdf");
         }
+
+        /// <summary>
+        /// Visualizar the PDF.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("VisualizarPDF/{pathPDF}")]
+        public ActionResult VisualizarPDF(string pathPDF)
+        {
+            string defaultPath = "C:\\Users\\afcan\\Downloads\\";
+
+            defaultPath += pathPDF;
+            var pdf = System.IO.File.ReadAllBytes(defaultPath);
+
+            var pdfStream = new System.IO.MemoryStream();
+
+            pdfStream.Write(pdf, 0, pdf.Length);
+
+            pdfStream.Position = 0;
+
+            return new FileStreamResult(pdfStream, "application/pdf");
+        }
+
+
     }
 }

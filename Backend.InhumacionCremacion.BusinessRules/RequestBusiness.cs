@@ -66,12 +66,14 @@ namespace Backend.InhumacionCremacion.BusinessRules
         /// </summary>
         private readonly Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.EstadoDocumentosSoporte> _repositoryEstadoDocumentosSoporte;
 
-
-        /// <summary>
+      /// <summary>
         /// The repository Resumen Solicitud
         /// </summary>
         private readonly Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.ResumenSolicitud> _repositoryResumenSolicitud;
-
+       /// <summary>
+        /// The oracle context
+        /// </summary>
+        private readonly Repositories.Context.OracleContext OracleContext;
         #endregion
 
         #region Constructor                                                
@@ -95,7 +97,8 @@ namespace Backend.InhumacionCremacion.BusinessRules
                                Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.Persona> repositoryPersona,
                                Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.UbicacionPersona> repositoryUbicacionPersona,
                                Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.ResumenSolicitud> repositoryResumenSolicitud,
-                               Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.EstadoDocumentosSoporte> repositoryEstadoDocumentosSoporte
+                               Entities.Interface.Repository.IBaseRepositoryInhumacionCremacion<Entities.Models.InhumacionCremacion.EstadoDocumentosSoporte> repositoryEstadoDocumentosSoporte,
+							   Repositories.Context.OracleContext oracleContext
             )
         {
             _telemetryException = telemetryException;
@@ -108,6 +111,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
             _repositoryDominio = repositoryDominio;
             _repositoryResumenSolicitud = repositoryResumenSolicitud;
             _repositoryEstadoDocumentosSoporte = repositoryEstadoDocumentosSoporte;
+			 OracleContext = oracleContext;
             
         }
         #endregion
@@ -850,6 +854,38 @@ namespace Backend.InhumacionCremacion.BusinessRules
         }
         
 
+        #endregion
+		
+		  #region Methods in Oracle
+        /// <summary>
+        /// Gets MaxNumInhLicencias.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ResponseBase<dynamic>> GetMaxNumInhLicencias()
+        {
+            try
+            {
+                var result = await OracleContext.ExecuteQuery<dynamic>("SELECT MAX(INH_NUM_LICENCIA) +1 from V_MUERTOS WHERE  INH_FEC_LICENCIA > TIMESTAMP '2022-01-01 00:00:00.000000'");
+
+
+                Console.Write(result.First());
+                var variable1 = " ";
+                if (result == null)
+                {
+                    return new Entities.Responses.ResponseBase<dynamic>(code: HttpStatusCode.OK, message: "Datos no encontrados");
+                }
+                else
+                {
+                    return new Entities.Responses.ResponseBase<dynamic>(HttpStatusCode.OK, Middle.Messages.GetOk, result.FirstOrDefault());
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _telemetryException.RegisterException(ex);
+                return new Entities.Responses.ResponseBase<dynamic>(code: HttpStatusCode.InternalServerError, message: Middle.Messages.ServerError);
+            }
+        }
         #endregion
     }
 }

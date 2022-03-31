@@ -1,4 +1,4 @@
-﻿using Backend.Shared.Utilities;
+﻿using Backend.InhumacionCremacion.Utilities;
 using Microsoft.Extensions.Configuration;
 using Oracle.ManagedDataAccess.Client;
 using System;
@@ -74,8 +74,28 @@ namespace Backend.InhumacionCremacion.Repositories.Context
                 {
                     return dataTable.ToDynamic<T>();
                 }
+                //  return dataTable.ToObjectList<T>();
+                var fields = typeof(T).GetFields();
+                List<T> resultado = new List<T>();
 
-                return dataTable.ConvertDataTable<T>();
+                foreach (DataRow file in dataTable.Rows)
+                {
+                    var ob = Activator.CreateInstance<T>();
+                    foreach (var fieldInfo in fields)
+                    {
+                        foreach (DataColumn column in dataTable.Columns)
+                        {
+                            if (fieldInfo.Name == column.ColumnName)
+                            {
+                                object value = file[column.ColumnName];
+                                fieldInfo.SetValue(ob, value);
+                                break;
+                            }
+                        }
+                    }
+                    resultado.Add(ob);
+                }
+                return resultado;
             }
             catch (Exception exc)
             {
