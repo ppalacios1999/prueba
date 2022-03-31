@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Backend.InhumacionCremacion.Entities.DTOs
 {
@@ -17,5 +15,7 @@ namespace Backend.InhumacionCremacion.Entities.DTOs
         public Guid? IdPais { get; set; }
         public Guid? IdDepartamento { get; set; }
         public Guid? IdMunicipio { get; set; }
+
+        public Guid? IdSolicitud { get; set; }
     }
 }

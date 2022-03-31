@@ -93,6 +93,9 @@ namespace Backend.InhumacionCremacion.API.Controllers
             return StatusCode(result.Code, result);
         }
 
+        [HttpGet("GetFuneraria/{idSolicitud}")]
+        
+
         /// <summary>
         ///     Gets the code ventanilla by identifier user.
         /// </summary>
@@ -102,6 +105,17 @@ namespace Backend.InhumacionCremacion.API.Controllers
         public async Task<ActionResult> GetCodeVentanillaByIdUser(string idUser)
         {
             var result = await RequestBusiness.GetCodeVentanillaByIdUser(idUser);
+            return StatusCode(result.Code, result);
+        }
+
+        // <summary>
+        ///     GetFuneraria
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetFunerariabyidSolicitud/{idSolicitud}")]
+        public async Task<ActionResult> GetFuneraria(string idSolicitud)
+        {
+            var result = await RequestBusiness.GetFuneraria(idSolicitud);
             return StatusCode(result.Code, result);
         }
 
@@ -155,6 +169,9 @@ namespace Backend.InhumacionCremacion.API.Controllers
             return StatusCode(result.Code, result);
         }
         
+
+
+
 
         #endregion
     }

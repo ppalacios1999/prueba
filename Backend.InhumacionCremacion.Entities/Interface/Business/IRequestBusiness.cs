@@ -74,13 +74,15 @@ namespace Backend.InhumacionCremacion.Entities.Interface.Business
         /// </summary>
         /// <returns></returns>
         Task<ResponseBase<List<ResumenSolicitud>>> GetResumenSolicitud(string idSolicitud);
-        
 
-        
-        
-        
+        Task<ResponseBase<List<DatosFuneraria>>> GetFuneraria(string idSolicitud);
 
-  
+
+
+
+
+
+
 
 
 

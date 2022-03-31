@@ -162,18 +162,21 @@ namespace Backend.InhumacionCremacion.BusinessRules
             try
             {
                 //datos funeraria
+                Guid IdSolicitud = Guid.NewGuid();
                 Guid IdDatosFuneraria = Guid.NewGuid();
                 await _repositoryDatosFuneraria.AddAsync(new Entities.Models.InhumacionCremacion.DatosFuneraria
                 {
                     IdDatosFuneraria = IdDatosFuneraria,
                     EnBogota = requestDTO.Solicitud.DatosFuneraria.EnBogota,
                     FueraBogota = requestDTO.Solicitud.DatosFuneraria.FueraBogota,
+                    FueraPais = requestDTO.Solicitud.DatosFuneraria.FueraPais,
                     Funeraria = requestDTO.Solicitud.DatosFuneraria.Funeraria,
                     OtroSitio = requestDTO.Solicitud.DatosFuneraria.OtroSitio,
                     Ciudad = requestDTO.Solicitud.DatosFuneraria.Ciudad,
                     IdPais = requestDTO.Solicitud.DatosFuneraria.IdPais,
                     IdDepartamento = requestDTO.Solicitud.DatosFuneraria.IdDepartamento,
-                    IdMunicipio = requestDTO.Solicitud.DatosFuneraria.IdMunicipio
+                    IdMunicipio = requestDTO.Solicitud.DatosFuneraria.IdMunicipio,
+                    IdSolicitud= IdSolicitud
 
                 });
                 //datos cementerio
@@ -223,7 +226,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
                 });
 
                 //almacenamiento datos de la solicitud
-                Guid IdSolicitud = Guid.NewGuid();
+                
                 await _repositorySolicitud.AddAsync(new Entities.Models.InhumacionCremacion.Solicitud
                 {
                     IdSolicitud = IdSolicitud,
@@ -240,6 +243,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
                     IdLugarDefuncion = IdLugarDefuncion,
                     IdTipoMuerte = requestDTO.Solicitud.IdTipoMuerte,
                     IdDatosCementerio = IdDatosCementerio,
+                    
                     IdInstitucionCertificaFallecimiento = IdInstitucionCertificaFallecimiento
                 });
 
@@ -393,7 +397,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
             try
             {
                 var resultSolicitud = await _repositorySolicitud.GetAllAsync(predicate: p => p.IdSolicitud.Equals(Guid.Parse(idSolicitud)), include: inc => inc
-                                                                                                                                   .Include(i => i.IdDatosCementerioNavigation)
+                                                                                                                                   .Include(i => i.IdDatosCementerioNavigation)                                                                                                                                   
                                                                                                                                    .Include(i => i.IdInstitucionCertificaFallecimientoNavigation)
                                                                                                                                    .Include(i => i.Persona)
                                                                                                                                    );
@@ -628,6 +632,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
                 var resultSolicitud = await _repositorySolicitud.GetAllAsync(
                     predicate: p => p.EstadoSolicitud.Equals(Guid.Parse(idEstado)), include: inc => inc
                         .Include(i => i.IdDatosCementerioNavigation)
+                        
                         .Include(i => i.IdInstitucionCertificaFallecimientoNavigation)
                         .Include(i => i.Persona));
 
@@ -656,8 +661,6 @@ namespace Backend.InhumacionCremacion.BusinessRules
                         FechaSolicitud = item.FechaSolicitud,
                         EstadoSolicitud = item.EstadoSolicitud,
                         IdTramite = item.IdTramite,
-
-
                         Persona = new List<Entities.DTOs.PersonaDTO>(),
 
                     };
@@ -706,6 +709,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
                 var resultSolicitud = await _repositorySolicitud.GetAllAsync(
                     predicate: p => p.IdSolicitud.Equals(Guid.Parse(idSolicitud)), include: inc => inc
                         .Include(i => i.IdDatosCementerioNavigation)
+                        
                         .Include(i => i.IdInstitucionCertificaFallecimientoNavigation)
                         .Include(i => i.Persona));
 
@@ -870,8 +874,31 @@ namespace Backend.InhumacionCremacion.BusinessRules
             }
 
         }
-        
+        public async Task<ResponseBase<List<DatosFuneraria>>> GetFuneraria(string idSolicitud)
+        {
+            try
+            {
+                var result = await _repositoryDatosFuneraria.GetAllAsync(predicate: p => p.IdSolicitud.Equals(Guid.Parse(idSolicitud)));
 
-        #endregion
-    }
+                if (result == null)
+                {
+                    return new Entities.Responses.ResponseBase<List<DatosFuneraria>>(code: HttpStatusCode.OK, message: "No se encontraron registros");
+                }
+                else
+                {
+                    return new Entities.Responses.ResponseBase<List<DatosFuneraria>>(code: HttpStatusCode.OK, message: Middle.Messages.GetOk, data: result.ToList(), count: result.Count());
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _telemetryException.RegisterException(ex);
+                return new Entities.Responses.ResponseBase<List<DatosFuneraria>>(code: HttpStatusCode.InternalServerError, message: Middle.Messages.ServerError);
+            }
+
+        }
+
+
+            #endregion
+        }
 }

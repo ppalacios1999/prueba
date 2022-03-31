@@ -11,6 +11,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Compile Include="..\Backend.InhumacionCremacion.Repositories\Config\DatosFunerariaConfig.cs" Link="DatosFunerariaConfig.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Wkhtmltopdf.NetCore" Version="3.0.2" />
     </ItemGroup>
 
