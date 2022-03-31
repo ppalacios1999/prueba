@@ -75,14 +75,9 @@ namespace Backend.InhumacionCremacion.Entities.Interface.Business
         /// <returns></returns>
         Task<ResponseBase<List<ResumenSolicitud>>> GetResumenSolicitud(string idSolicitud);
         
+		Task<ResponseBase<dynamic>> GetMaxNumInhLicencias();
 
-        
-        
-        
-
-  
-
-
+		Task<ResponseBase<dynamic>> GetDataFromInhumacionQuery(string idSolicitud, string idTipoPersona);     
 
 
     }
