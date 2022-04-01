@@ -174,15 +174,15 @@ namespace Backend.InhumacionCremacion.BusinessRules
                             FullNameFallecido = datosPersonaFallecida.PrimerNombre + " " + datosPersonaFallecida.SegundoNombre + " " + datosPersonaFallecida.PrimerApellido + " " + datosPersonaFallecida.SegundoApellido,
                             Nacionalidad = "Colombiana",//datosPersonaFallecida.Nacionalidad,
                             FechaFallecido = datoSolitud.FechaDefuncion,
-                            Genero = "Masculino",
+                            Genero = "Masculino",// eliminar
                             TipoIdentificacion = "C.C" /*datosPersonaFallecida.TipoIdentificacion*/,
                             NumeroIdentificacion = datosPersonaFallecida.NumeroIdentificacion,
-                            Muerte = "Natural",
+                            Muerte = "Natural", // solicitud
                             Edad = Utilities.ConvertTypes.GetEdad(Convert.ToDateTime(datosPersonaFallecida.FechaNacimiento)),
                             FullNameMedico = datosMedico.PrimerNombre + " " + datosMedico.SegundoNombre + " " + datosMedico.PrimerApellido + " " + datosMedico.SegundoApellido,
-                            Cementerio = "Las puertas del sol",
-                            FirmaAprobador = "Marta Hernadez",
-                            FirmaValidador = "Benito Rodriguez"
+                            Cementerio = "Las puertas del sol", // ResumenSolicitud -> DC
+                            FirmaAprobador = "Marta Hernadez", //
+                            FirmaValidador = "Benito Rodriguez" // 
                         };
 
                         //var pdf = _generatePdf.GetPDF("Views/Report.cshtml");
@@ -225,10 +225,10 @@ namespace Backend.InhumacionCremacion.BusinessRules
                             Edad = Utilities.ConvertTypes.GetEdad(Convert.ToDateTime(datosPersonaFallecida.FechaNacimiento)),
                             FullNameMedico = datosMedico.PrimerNombre + " " + datosMedico.SegundoNombre + " " + datosMedico.PrimerApellido + " " + datosMedico.SegundoApellido,
                             Cementerio = "Las puertas del sol",
-                            AutorizadorCremacion = "Luis Sanchez",
-                            Parentesco = "Hijo",
-                            FirmaAprobador = "Marta Hernadez",
-                            FirmaValidador = "Benito Rodriguez"
+                            AutorizadorCremacion = "Luis Sanchez", //
+                            Parentesco = "Hijo", // 
+                            FirmaAprobador = "",
+                            FirmaValidador = ""
                         };
 
 
