@@ -950,7 +950,7 @@ namespace Backend.InhumacionCremacion.BusinessRules
 
                 var tipoMuerte = await _repositoryDominio.GetAsync(predicate: p => p.Id.Equals(result.IdSolicitudNavigation.IdTipoMuerte), selector: sel => new Entities.Models.Commons.Dominio { Descripcion = sel.Descripcion });
 
-                result.TipoMuerte = tipoMuerte.Descripcion;
+                //result.TipoMuerte = tipoMuerte.Descripcion;
                 //Console.Write(result.First());
                 var variable1 = " ";
                 if (result == null)

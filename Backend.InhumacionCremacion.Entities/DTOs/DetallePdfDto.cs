@@ -16,6 +16,7 @@ namespace Backend.InhumacionCremacion.Entities.DTOs
         public string FullNameMedico { get; set; }
         public DateTime FechaFallecido { get; set; }
         public int Edad { get; set; }
+        public string ejemplo { get; set; }
         //public string Name { get; set; }
     }
 }

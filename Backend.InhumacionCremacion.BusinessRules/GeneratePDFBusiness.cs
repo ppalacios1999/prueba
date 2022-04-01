@@ -149,39 +149,48 @@ namespace Backend.InhumacionCremacion.BusinessRules
 
                     datosPersonaFallecida = await _repositoryPersona.GetAsync(w => w.IdSolicitud.Equals(System.Guid.Parse(idSolicitud)) && w.IdTipoPersona.Equals(Guid.Parse("01F64F02-373B-49D4-8CB1-CB677F74292C")));
                     datosMedico = await _repositoryPersona.GetAsync(w => w.IdSolicitud.Equals(System.Guid.Parse(idSolicitud)) && w.IdTipoPersona.Equals(Guid.Parse("d8b0250b-2991-42a0-a672-8e3e45985500")));
-                    var data = new Entities.DTOs.DetallePdfDto
-                    {
-                        //proceso individual
-                        Edad = Utilities.ConvertTypes.GetEdad(Convert.ToDateTime(datosPersonaFallecida.FechaNacimiento)),
-                        CertificadoDefuncion = datoSolitud.NumeroCertificado,
-                        FechaActual = DateTime.Now.ToString("dd/MM/yyyy"),
-                        Hora = DateTime.Now.ToString("hh:mm:ss"),
-                        FechaFallecido = datoSolitud.FechaDefuncion,
-                        NumeroLicencia = solicitud.NumeroCertificado,
-                        Funeraria = "por definir",
-                        FullNameFallecido = datosPersonaFallecida.PrimerNombre + " " + datosPersonaFallecida.SegundoNombre + " " + datosPersonaFallecida.PrimerApellido + " " + datosPersonaFallecida.SegundoApellido,
-                        FullNameTramitador = "por definir",
-                        FullNameMedico = datosMedico.PrimerNombre + " " + datosMedico.SegundoNombre + " " + datosMedico.PrimerApellido + " " + datosMedico.SegundoApellido
-                    };
-                    Console.WriteLine("ingrese 2.1.1.1");
+
+                    
+
+                    //Console.WriteLine("ingrese 2.1.1.1");
 
 
                     if (datoSolitud.IdTramite.Equals(Guid.Parse("A289C362-E576-4962-962B-1C208AFA0273")))
                     {
-                        Console.WriteLine("ingrese 2.1");
+                        
+                        //INHUMACION INDIVIDUAL
+                                            
 
-                        string[] datosDinamicosInhumacionIndividual = {data.FechaActual,
-                        "numero de la licencia",data.CertificadoDefuncion, "~:~funeraria~:~",
-                        data.FechaActual,"~:~nombre_completo_del_tramitador~:~", data.FullNameFallecido,
-                        "~:~nacionalidad~:~", "~:~fecha_fallecido~:~, ~:~hora_fallecido~:~","~:~genero_fallecido~:~", "~:~tipo_de_identificacion~:~",
-                    "~:~numero_de_identificacion~:~", "~:~tipo_de_muerte~:~", "~:~años_del_fallecido~:~", "~:~nombre_completo_del_medico~:~",
-                        "~:~nombre_completo_del_cementerio~:~", "~:~nombre_de_quien_autoriza_la_cremacion~:~", "~:~parentesco_de_quien_autoriza_la_cremacion~:~",
-                        "~:~firma_del_aprobador~:~", "~:~firma_del_validador~:~"};
+                        var dataInhumacionIndividual = new Entities.DTOs.DetallePdfInhumacionIndividualDto
+                        {
+
+
+                            FechaActual = DateTime.Now.ToString("dd/MM/yyyy"),
+                            Hora = DateTime.Now.ToString("hh:mm:ss"),
+                            NumeroLicencia = "N° 002",
+                            CertificadoDefuncion = datoSolitud.NumeroCertificado,
+                            Funeraria = " Los Olivos",
+                            FullNameTramitador = " Carlos Gonzalez Asprilla",
+                            FullNameFallecido = datosPersonaFallecida.PrimerNombre + " " + datosPersonaFallecida.SegundoNombre + " " + datosPersonaFallecida.PrimerApellido + " " + datosPersonaFallecida.SegundoApellido,
+                            Nacionalidad = "Colombiana",//datosPersonaFallecida.Nacionalidad,
+                            FechaFallecido = datoSolitud.FechaDefuncion,
+                            Genero = "Masculino",
+                            TipoIdentificacion = "C.C" /*datosPersonaFallecida.TipoIdentificacion*/,
+                            NumeroIdentificacion = datosPersonaFallecida.NumeroIdentificacion,
+                            Muerte = "Natural",
+                            Edad = Utilities.ConvertTypes.GetEdad(Convert.ToDateTime(datosPersonaFallecida.FechaNacimiento)),
+                            FullNameMedico = datosMedico.PrimerNombre + " " + datosMedico.SegundoNombre + " " + datosMedico.PrimerApellido + " " + datosMedico.SegundoApellido,
+                            Cementerio = "Las puertas del sol",
+                            FirmaAprobador = "Marta Hernadez",
+                            FirmaValidador = "Benito Rodriguez"
+                        };
 
                         //var pdf = _generatePdf.GetPDF("Views/Report.cshtml");
                         //var pdf = _generatePdf.GetPDF(agregarValoresDinamicos(HTML_PDF.Result, datosLLavesInhumacionIndividual, datosDinamicosInhumacionIndividual));
 
-                        var pdf = await _generatePdf.GetByteArray("Views/InhumacionIndividual.cshtml", datosDinamicosInhumacionIndividual);
+                        //var pdf = await _generatePdf.GetByteArray("Views/InhumacionIndividual.cshtml", datosDinamicosInhumacionIndividual);
+
+                        var pdf = await _generatePdf.GetByteArray("Views/InhumacionIndividual.cshtml", dataInhumacionIndividual);
 
                         var pdfStream = new System.IO.MemoryStream();
 
@@ -194,18 +203,38 @@ namespace Backend.InhumacionCremacion.BusinessRules
                     }
                     else
                     {
-                        Console.WriteLine("ingrese 2.2");
-                        string[] datosDinamicosInhumacionIndividual = {data.FechaActual,
-                        "numero de la licencia",data.CertificadoDefuncion, "~:~funeraria~:~",
-                        data.FechaActual,"~:~nombre_completo_del_tramitador~:~", data.FullNameFallecido,
-                        "~:~nacionalidad~:~", "~:~fecha_fallecido~:~, ~:~hora_fallecido~:~","~:~genero_fallecido~:~", "~:~tipo_de_identificacion~:~",
-                    "~:~numero_de_identificacion~:~", "~:~tipo_de_muerte~:~", "~:~años_del_fallecido~:~", "~:~nombre_completo_del_medico~:~",
-                        "~:~nombre_completo_del_cementerio~:~", "~:~nombre_de_quien_autoriza_la_cremacion~:~", "~:~parentesco_de_quien_autoriza_la_cremacion~:~",
-                        "~:~firma_del_aprobador~:~", "~:~firma_del_validador~:~"};
+                        //CREMACION INDIVIDUAL
+
+                        var dataCremacionIndividual = new Entities.DTOs.DetallePdfCremacionIndividualDto
+                        {
+
+
+                            FechaActual = DateTime.Now.ToString("dd/MM/yyyy"),
+                            Hora = DateTime.Now.ToString("hh:mm:ss"),
+                            NumeroLicencia = "N° 002",
+                            CertificadoDefuncion = datoSolitud.NumeroCertificado,
+                            Funeraria = " Los Olivos",
+                            FullNameTramitador = " Carlos Gonzalez Asprilla",
+                            FullNameFallecido = datosPersonaFallecida.PrimerNombre + " " + datosPersonaFallecida.SegundoNombre + " " + datosPersonaFallecida.PrimerApellido + " " + datosPersonaFallecida.SegundoApellido,
+                            Nacionalidad = "Colombiana",//datosPersonaFallecida.Nacionalidad,
+                            FechaFallecido = datoSolitud.FechaDefuncion,
+                            Genero = "Masculino",
+                            TipoIdentificacion = "C.C" /*datosPersonaFallecida.TipoIdentificacion*/,
+                            NumeroIdentificacion = datosPersonaFallecida.NumeroIdentificacion,
+                            Muerte = "Natural",
+                            Edad = Utilities.ConvertTypes.GetEdad(Convert.ToDateTime(datosPersonaFallecida.FechaNacimiento)),
+                            FullNameMedico = datosMedico.PrimerNombre + " " + datosMedico.SegundoNombre + " " + datosMedico.PrimerApellido + " " + datosMedico.SegundoApellido,
+                            Cementerio = "Las puertas del sol",
+                            AutorizadorCremacion = "Luis Sanchez",
+                            Parentesco = "Hijo",
+                            FirmaAprobador = "Marta Hernadez",
+                            FirmaValidador = "Benito Rodriguez"
+                        };
+
 
                         //var pdf = _generatePdf.GetPDF("Views/Report.cshtml");
                         //var pdf = _generatePdf.GetPDF(agregarValoresDinamicos(HTML_PDF.Result, datosLLavesInhumacionIndividual, datosDinamicosInhumacionIndividual));
-                        var pdf = await _generatePdf.GetByteArray("Views/CremacionIndividual.cshtml", datosDinamicosInhumacionIndividual);
+                        var pdf = await _generatePdf.GetByteArray("Views/CremacionIndividual.cshtml", dataCremacionIndividual);
                         var pdfStream = new System.IO.MemoryStream();
 
                         pdfStream.Write(pdf, 0, pdf.Length);
@@ -225,34 +254,34 @@ namespace Backend.InhumacionCremacion.BusinessRules
 
                     datosMedico = await _repositoryPersona.GetAsync(w => w.IdSolicitud.Equals(System.Guid.Parse(idSolicitud)) && w.IdTipoPersona.Equals(Guid.Parse("d8b0250b-2991-42a0-a672-8e3e45985500")));
 
-                    var data = new Entities.DTOs.DetallePdfDto
-                    {
-                        Edad = Utilities.ConvertTypes.GetEdad(Convert.ToDateTime(datosPersonaFallecida.FechaNacimiento)),
-                        CertificadoDefuncion = datoSolitud.NumeroCertificado,
-                        FechaActual = DateTime.Now.ToString("dd/MM/yyyy"),
-                        Hora = DateTime.Now.ToString("hh:mm:ss"),
-                        FechaFallecido = datoSolitud.FechaDefuncion,
-                        NumeroLicencia = solicitud.NumeroCertificado,
-                        Funeraria = "por definir",
-                        //FullNameFallecido = datosPersonaFallecida.PrimerNombre + " " + datosPersonaFallecida.SegundoNombre + " " + datosPersonaFallecida.PrimerApellido + " " + datosPersonaFallecida.SegundoApellido,
-                        FullNameTramitador = "por definir",
-                        FullNameMedico = datosMedico.PrimerNombre + " " + datosMedico.SegundoNombre + " " + datosMedico.PrimerApellido + " " + datosMedico.SegundoApellido
-                    };
 
                     if (datoSolitud.IdTramite.Equals(Guid.Parse("AD5EA0CB-1FA2-4933-A175-E93F2F8C0060"))){
-                        Console.WriteLine("ingrese 4");
+                        //IHUMACION FETAL
 
-                        string[] datosDinamicosInhumacionIndividual = {data.FechaActual,
-                        "numero de la licencia",data.CertificadoDefuncion, "~:~funeraria~:~",
-                        data.FechaActual,"~:~nombre_completo_del_tramitador~:~", data.FullNameFallecido,
-                        "~:~nacionalidad~:~", "~:~fecha_fallecido~:~, ~:~hora_fallecido~:~","~:~genero_fallecido~:~", "~:~tipo_de_identificacion~:~",
-                    "~:~numero_de_identificacion~:~", "~:~tipo_de_muerte~:~", "~:~años_del_fallecido~:~", "~:~nombre_completo_del_medico~:~",
-                        "~:~nombre_completo_del_cementerio~:~", "~:~nombre_de_quien_autoriza_la_cremacion~:~", "~:~parentesco_de_quien_autoriza_la_cremacion~:~",
-                        "~:~firma_del_aprobador~:~", "~:~firma_del_validador~:~"};
+                        var dataInhumacionFetal = new Entities.DTOs.DetallePdfInhumacionFetalDto
+                        {
 
-                        //var pdf = _generatePdf.GetPDF("Views/Report.cshtml");
-                        // var pdf = _generatePdf.GetPDF(agregarValoresDinamicos(HTML_PDF.Result, datosLLavesInhumacionIndividual, datosDinamicosInhumacionIndividual));
-                        var pdf = await _generatePdf.GetByteArray("Views/InhumacionFetal.cshtml", datosDinamicosInhumacionIndividual);
+
+                            FechaActual = DateTime.Now.ToString("dd/MM/yyyy"),
+                            Hora = DateTime.Now.ToString("hh:mm:ss"),
+                            NumeroLicencia = "N° 002",
+                            CertificadoDefuncion = datoSolitud.NumeroCertificado,
+                            Funeraria = " Los Olivos",
+                            FullNameTramitador = " Carlos Gonzalez Asprilla",
+                            FullNameFallecido = datosPersonaFallecida.PrimerNombre + " " + datosPersonaFallecida.SegundoNombre + " " + datosPersonaFallecida.PrimerApellido + " " + datosPersonaFallecida.SegundoApellido,
+                            NombreMadre = datosPersonaFallecida.PrimerNombre + " " + datosPersonaFallecida.SegundoNombre + " " + datosPersonaFallecida.PrimerApellido + " " + datosPersonaFallecida.SegundoApellido,
+                            Nacionalidad = "Colombiana",//datosPersonaFallecida.Nacionalidad,
+                            FechaFallecido = datoSolitud.FechaDefuncion,
+                            Genero = "Masculino",
+                            Muerte = "Natural",
+                            FullNameMedico = datosMedico.PrimerNombre + " " + datosMedico.SegundoNombre + " " + datosMedico.PrimerApellido + " " + datosMedico.SegundoApellido,
+                            Cementerio = "Las puertas del sol",
+                            FirmaAprobador = "Marta Hernadez",
+                            FirmaValidador = "Benito Rodriguez"
+                        };
+
+
+                        var pdf = await _generatePdf.GetByteArray("Views/InhumacionFetal.cshtml", dataInhumacionFetal);
 
                         var pdfStream = new System.IO.MemoryStream();
 
@@ -265,15 +294,34 @@ namespace Backend.InhumacionCremacion.BusinessRules
                     }
                     else
                     {
-                        string[] datosDinamicosInhumacionIndividual = {data.FechaActual,
-                        "numero de la licencia",data.CertificadoDefuncion, "~:~funeraria~:~",
-                        data.FechaActual,"~:~nombre_completo_del_tramitador~:~", data.FullNameFallecido,
-                        "~:~nacionalidad~:~", "~:~fecha_fallecido~:~, ~:~hora_fallecido~:~","~:~genero_fallecido~:~", "~:~tipo_de_identificacion~:~",
-                    "~:~numero_de_identificacion~:~", "~:~tipo_de_muerte~:~", "~:~años_del_fallecido~:~", "~:~nombre_completo_del_medico~:~",
-                        "~:~nombre_completo_del_cementerio~:~", "~:~nombre_de_quien_autoriza_la_cremacion~:~", "~:~parentesco_de_quien_autoriza_la_cremacion~:~",
-                        "~:~firma_del_aprobador~:~", "~:~firma_del_validador~:~"};
 
-                        var pdf = await _generatePdf.GetByteArray("Views/CremacionFetal.cshtml", datosDinamicosInhumacionIndividual);
+                        //CREMACION FETAL
+
+                        var dataCremacionFetal = new Entities.DTOs.DetallePdfCremacionFetalDto
+                        {
+
+
+                            FechaActual = DateTime.Now.ToString("dd/MM/yyyy"),
+                            Hora = DateTime.Now.ToString("hh:mm:ss"),
+                            NumeroLicencia = "N° 002",
+                            CertificadoDefuncion = datoSolitud.NumeroCertificado,
+                            Funeraria = " Los Olivos",
+                            FullNameTramitador = " Carlos Gonzalez Asprilla",
+                            FullNameFallecido = datosPersonaFallecida.PrimerNombre + " " + datosPersonaFallecida.SegundoNombre + " " + datosPersonaFallecida.PrimerApellido + " " + datosPersonaFallecida.SegundoApellido,
+                            NombreMadre = datosPersonaFallecida.PrimerNombre + " " + datosPersonaFallecida.SegundoNombre + " " + datosPersonaFallecida.PrimerApellido + " " + datosPersonaFallecida.SegundoApellido,
+                            Nacionalidad = "Colombiana",//datosPersonaFallecida.Nacionalidad,
+                            FechaFallecido = datoSolitud.FechaDefuncion,
+                            Genero = "Masculino",
+                            Muerte = "Natural",
+                            FullNameMedico = datosMedico.PrimerNombre + " " + datosMedico.SegundoNombre + " " + datosMedico.PrimerApellido + " " + datosMedico.SegundoApellido,
+                            Cementerio = "Las puertas del sol",
+                            AutorizadorCremacion = datosPersonaFallecida.PrimerNombre + " " + datosPersonaFallecida.SegundoNombre + " " + datosPersonaFallecida.PrimerApellido + " " + datosPersonaFallecida.SegundoApellido,
+                            Parentesco = "Madre",
+                            FirmaAprobador = "Marta Hernadez",
+                            FirmaValidador = "Benito Rodriguez"
+                        };
+
+                        var pdf = await _generatePdf.GetByteArray("Views/CremacionFetal.cshtml", dataCremacionFetal);
                         //var pdf = _generatePdf.GetPDF(agregarValoresDinamicos(HTML_PDF.Result, datosLLavesInhumacionIndividual, datosDinamicosInhumacionIndividual));
 
                         var pdfStream = new System.IO.MemoryStream();
